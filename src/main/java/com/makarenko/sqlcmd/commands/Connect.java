@@ -6,12 +6,12 @@ import java.sql.SQLException;
 
 public class Connect implements Command {
     private Message message;
-    private DatabaseManager manager;
+    private DatabaseManager databaseManager;
     private int count = 4;
 
-    public Connect(DatabaseManager manager, Message message) {
+    public Connect(DatabaseManager databaseManager, Message message) {
         this.message = message;
-        this.manager = manager;
+        this.databaseManager = databaseManager;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Connect implements Command {
         String password = data[3];
 
         try {
-            manager.connect(database, userName, password);
+            databaseManager.connect(database, userName, password);
             message.write(String.format("Подключение к базе даных '%s' произошло успешно", database));
         } catch (SQLException e) {
             message.write(String.format("Не удалось подключиться к базе данных '%s' по причине '%s'", database, e.getMessage()));

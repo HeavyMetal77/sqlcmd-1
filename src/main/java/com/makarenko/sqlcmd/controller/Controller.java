@@ -8,12 +8,13 @@ public class Controller {
     private Command[] commands;
     private Message message;
 
-    public Controller(Message message, DatabaseManager manager) {
+    public Controller(Message message, DatabaseManager databaseManager) {
         this.message = message;
         this.commands = new Command[] {
+                new CreateTable(message, databaseManager),
                 new Exit(message),
-                new Connect(manager, message),
-                new isConnected(manager, message)
+                new Connect(databaseManager, message),
+                new isConnected(databaseManager, message)
         };
     }
 
