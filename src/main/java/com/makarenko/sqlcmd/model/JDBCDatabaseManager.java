@@ -7,23 +7,15 @@ import java.sql.SQLException;
 public class JDBCDatabaseManager implements DatabaseManager {
     Connection connection;
 
-    public void connect(String database, String userName, String password) {
-        try {
+    public void connect(String database, String userName, String password) throws SQLException, ClassNotFoundException {
             Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Пожалуйста добавте файл jdbc jar в библиотеку или зависимость в файл pom.xml.", e);
-        }
-        try {
-            if (connection != null) {
-                connection.close();
-            }
+            if (connection != null) connection.close();
+
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + database, userName, password);
-        } catch (SQLException e) {
-            connection = null;
-            throw new RuntimeException(String.format("Невозможно подключится к базе данных: " +
-                    "%s user: %s password: %s ", database, userName, password), e);
-        }
     }
 
-
+    @Override
+    public boolean isConnected() {
+        return connection != null;
+    }
 }

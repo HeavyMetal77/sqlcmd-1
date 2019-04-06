@@ -1,6 +1,9 @@
 package com.makarenko.sqlcmd.model;
 
-public interface DatabaseManager {
-    void connect(String database, String userName, String password);
+import java.sql.SQLException;
 
+public interface DatabaseManager {
+    void connect(String database, String userName, String password) throws SQLException, ClassNotFoundException;
+
+    boolean isConnected();
 }

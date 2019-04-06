@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Console implements ViewMessage {
+public class Console implements Message {
     public void write(String message) {
         System.out.println(message);
     }
