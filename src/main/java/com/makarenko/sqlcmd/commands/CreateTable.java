@@ -46,7 +46,7 @@ public class CreateTable implements Command {
 
     @Override
     public String formatCommand() {
-        return "create|tableName|primaryKeyName|columnName1|columnValue1|....|columnNameN|columnValueN";
+        return "table|tableName|primaryKeyName|columnName1|columnValue1|....|columnNameN|columnValueN";
     }
 
     @Override
@@ -55,10 +55,10 @@ public class CreateTable implements Command {
     }
 
     private boolean isCorrectCommand(String command, String data[]) {
-        if (data.length < 3) {
+        if (data.length < 3 || data.length % 2 != 1) {
             message.write(String.format("Вы неверно ввели данные " +
                     "'%s', а должно быть " +
-                    "create|tableName|primaryKeyName|columnName1|columnValue1|....|columnNameN|columnValueN", command));
+                    "table|tableName|primaryKeyName|columnName1|columnValue1|....|columnNameN|columnValueN", command));
             return false;
         }
         return true;

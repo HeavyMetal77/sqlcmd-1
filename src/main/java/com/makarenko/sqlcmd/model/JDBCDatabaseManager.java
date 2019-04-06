@@ -21,16 +21,23 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public void createTable(String tableName, String keyName, Map<String, Object> columns) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("CREATE TABLE " + tableName + " ( " + keyName + " INT PRIMARY KEY NOT NULL " +
-                getParameters(columns) + ")");
+                getNameValuesColumn(columns) + ")");
         stmt.close();
     }
 
-    private String getParameters(Map<String, Object> columns) {
+    private String getNameValuesColumn(Map<String, Object> columns) {
         String result = "";
         for (Map.Entry<String, Object> pair : columns.entrySet()) {
             result += ", " + pair.getKey() + " " + pair.getValue();
         }
         return result;
+    }
+
+    @Override
+    public void dropTable(String tableName) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("DROP TABLE " + tableName);
+        statement.close();
     }
 
     @Override

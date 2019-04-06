@@ -7,7 +7,6 @@ import java.sql.SQLException;
 public class Connect implements Command {
     private Message message;
     private DatabaseManager databaseManager;
-    private int count = 4;
 
     public Connect(DatabaseManager databaseManager, Message message) {
         this.message = message;
@@ -32,7 +31,7 @@ public class Connect implements Command {
     @Override
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
-        if (data.length != count) {
+        if (data.length != 4) {
             isCorrectCommand(command);
             return;
         }

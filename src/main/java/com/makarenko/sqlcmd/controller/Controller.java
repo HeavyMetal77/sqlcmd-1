@@ -11,6 +11,7 @@ public class Controller {
     public Controller(Message message, DatabaseManager databaseManager) {
         this.message = message;
         this.commands = new Command[] {
+                new DropTable(message, databaseManager),
                 new CreateTable(message, databaseManager),
                 new Exit(message),
                 new Connect(databaseManager, message),
