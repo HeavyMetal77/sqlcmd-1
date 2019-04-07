@@ -14,4 +14,6 @@ public interface DatabaseManager {
     void createTable(String tableName, String keyName, Map<String, Object> columns) throws SQLException;
 
     void dropTable(String tableName) throws SQLException;
+
+    void clearTable(String tableName) throws SQLException;
 }

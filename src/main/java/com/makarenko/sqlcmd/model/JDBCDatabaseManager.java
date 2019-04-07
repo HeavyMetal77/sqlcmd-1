@@ -25,6 +25,8 @@ public class JDBCDatabaseManager implements DatabaseManager {
             while (resultSet.next()) {
                 tables.add(resultSet.getString("table_name"));
             }
+            statement.close();
+            resultSet.close();
             return tables;
     }
 
@@ -46,6 +48,14 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public void dropTable(String tableName) throws SQLException {
         Statement statement = connection.createStatement();
         statement.executeUpdate("DROP TABLE " + tableName);
+        statement.close();
+    }
+
+    @Override
+    public void clearTable(String tableName) throws SQLException {
+        String sql = "DELETE FROM " + tableName;
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
         statement.close();
     }
 

@@ -14,16 +14,6 @@ public class Connect implements Command {
     }
 
     @Override
-    public String formatCommand() {
-        return "connect|database|user|password";
-    }
-
-    @Override
-    public String depictionCommand() {
-        return "Подключение к базе данных";
-    }
-
-    @Override
     public boolean beginCommand(String command) {
         return command.startsWith("connect|");
     }
@@ -50,8 +40,18 @@ public class Connect implements Command {
         }
     }
 
+    @Override
+    public String formatCommand() {
+        return "connect|database|user|password";
+    }
+
+    @Override
+    public String depictionCommand() {
+        return "Подключение к базе данных";
+    }
+
     private void isCorrectCommand(String command) {
-        message.write(String.format("вы ввели неверное количество параметров " +
+        message.write(String.format("вы неверно ввели команду " +
                 "'%s', а должно быть connect|database|user|password", command));
     }
 }

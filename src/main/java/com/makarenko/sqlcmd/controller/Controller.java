@@ -11,13 +11,14 @@ public class Controller {
     public Controller(Message message, DatabaseManager databaseManager) {
         this.message = message;
         this.commands = new Command[] {
-                new ListTables(message, databaseManager),
-                new DropTable(message, databaseManager),
-                new CreateTable(message, databaseManager),
                 new Exit(message),
                 new Connect(databaseManager, message),
-                new CommandNotExist(message),
                 new isConnected(databaseManager, message),
+                new CreateTable(message, databaseManager),
+                new ListTables(message, databaseManager),
+                new DropTable(message, databaseManager),
+                new Clear(message, databaseManager),
+                new CommandNotExist(message),
         };
     }
 
