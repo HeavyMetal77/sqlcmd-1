@@ -18,4 +18,6 @@ public interface DatabaseManager {
     void clearTable(String tableName) throws SQLException;
 
     void findTable(String tableName) throws SQLException;
+
+    void insert(String tableName, Map<String, Object> row) throws SQLException;
 }

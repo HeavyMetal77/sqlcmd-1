@@ -3,6 +3,7 @@ package com.makarenko.sqlcmd.model;
 import com.makarenko.sqlcmd.view.PrintDataTable;
 
 import java.sql.*;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -70,6 +71,30 @@ public class JDBCDatabaseManager implements DatabaseManager {
         PrintDataTable.printResultSet(resultSet);
         statement.close();
         resultSet.close();
+    }
+
+    @Override
+    public void insert(String tableName, Map<String, Object> row) throws SQLException {
+        Statement statement = connection.createStatement();
+        StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " (");
+        Iterator<String> iteratorKey = row.keySet().iterator();
+        while (iteratorKey.hasNext()) {
+            sql.append(iteratorKey.next());
+            if (iteratorKey.hasNext()) {
+                sql.append(", ");
+            }
+        }
+        sql.append(") VALUES (");
+        Iterator<Object> iteratorValue = row.values().iterator();
+        while (iteratorValue.hasNext()) {
+            sql.append("'" + iteratorValue.next() + "'");
+            if (iteratorValue.hasNext()) {
+                sql.append(", ");
+            }
+        }
+        sql.append(")").toString();
+        statement.executeUpdate(String.valueOf(sql));
+        statement.close();
     }
 
     @Override
