@@ -1,5 +1,7 @@
 package com.makarenko.sqlcmd.model;
 
+import com.makarenko.sqlcmd.view.PrintDataTable;
+
 import java.sql.*;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -22,12 +24,12 @@ public class JDBCDatabaseManager implements DatabaseManager {
         String sql = "SELECT table_name FROM information_schema.tables WHERE table_schema='public'";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()) {
-                tables.add(resultSet.getString("table_name"));
-            }
-            statement.close();
-            resultSet.close();
-            return tables;
+        while (resultSet.next()) {
+            tables.add(resultSet.getString("table_name"));
+        }
+        statement.close();
+        resultSet.close();
+        return tables;
     }
 
     @Override
@@ -46,8 +48,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void dropTable(String tableName) throws SQLException {
+        String sql = "DROP TABLE ";
         Statement statement = connection.createStatement();
-        statement.executeUpdate("DROP TABLE " + tableName);
+        statement.executeUpdate(sql + tableName);
         statement.close();
     }
 
@@ -57,6 +60,16 @@ public class JDBCDatabaseManager implements DatabaseManager {
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
         statement.close();
+    }
+
+    @Override
+    public void findTable(String tableName) throws SQLException {
+        String sql = "SELECT * FROM " + tableName;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        PrintDataTable.printResultSet(resultSet);
+        statement.close();
+        resultSet.close();
     }
 
     @Override

@@ -4,11 +4,11 @@ import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
 import java.sql.SQLException;
 
-public class DropTable implements Command {
+public class Drop implements Command {
     Message message;
     DatabaseManager databaseManager;
 
-    public DropTable(Message message, DatabaseManager databaseManager) {
+    public Drop(Message message, DatabaseManager databaseManager) {
         this.message = message;
         this.databaseManager = databaseManager;
     }

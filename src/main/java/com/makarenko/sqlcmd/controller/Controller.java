@@ -14,9 +14,10 @@ public class Controller {
                 new Exit(message),
                 new Connect(databaseManager, message),
                 new isConnected(databaseManager, message),
-                new CreateTable(message, databaseManager),
-                new ListTables(message, databaseManager),
-                new DropTable(message, databaseManager),
+                new Find(message, databaseManager),
+                new Create(message, databaseManager),
+                new List(message, databaseManager),
+                new Drop(message, databaseManager),
                 new Clear(message, databaseManager),
                 new CommandNotExist(message),
         };

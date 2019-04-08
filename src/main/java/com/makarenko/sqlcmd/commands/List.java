@@ -2,15 +2,14 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
-
 import java.sql.SQLException;
 import java.util.Set;
 
-public class ListTables implements Command {
+public class List implements Command {
     Message message;
     DatabaseManager databaseManager;
 
-    public ListTables(Message message, DatabaseManager databaseManager) {
+    public List(Message message, DatabaseManager databaseManager) {
         this.message = message;
         this.databaseManager = databaseManager;
     }
@@ -24,8 +23,10 @@ public class ListTables implements Command {
     public void executionCommand(String command) {
         try {
             Set<String> tables = databaseManager.listTables();
-            String list = tables.toString();
-            message.write(list);
+            if(tables.size() == 0) {
+                message.write("В этой базе данных нет таблиц.");
+            }
+            message.write(tables.toString());
         } catch (SQLException e) {
             message.write(String.format("Не удалось вывести список всех таблиц по причине '%s'", e.getMessage()));
         }

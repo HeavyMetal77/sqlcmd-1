@@ -2,16 +2,15 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
-
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CreateTable implements Command {
+public class Create implements Command {
     Message message;
     DatabaseManager databaseManager;
 
-    public CreateTable(Message message, DatabaseManager databaseManager) {
+    public Create(Message message, DatabaseManager databaseManager) {
         this.message = message;
         this.databaseManager = databaseManager;
     }
