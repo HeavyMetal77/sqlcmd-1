@@ -14,6 +14,7 @@ public class Controller {
                 new Exit(message),
                 new Connect(databaseManager, message),
                 new isConnected(databaseManager, message),
+                new Update(message, databaseManager),
                 new Insert(message, databaseManager),
                 new Find(message, databaseManager),
                 new Create(message, databaseManager),

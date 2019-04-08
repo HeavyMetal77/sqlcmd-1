@@ -98,6 +98,17 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
+    public void updateRow(String tableName, String keyName, String keyValue, Map<String, Object> column) throws SQLException {
+        Statement statement = connection.createStatement();
+        for (Map.Entry<String, Object> pair : column.entrySet()) {
+            statement.executeUpdate("UPDATE " + tableName +
+                    " SET " + pair.getKey() + " = '" + pair.getValue() +
+                    "' WHERE " + keyName + " = '" + keyValue + "'");
+        }
+        statement.close();
+    }
+
+    @Override
     public boolean isConnected() {
         return connection != null;
     }
