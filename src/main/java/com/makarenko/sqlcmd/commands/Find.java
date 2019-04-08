@@ -34,7 +34,6 @@ public class Find implements Command {
             message.write(String.format(
                     "Не удалось отобразить таблицу '%s' по причине '%s'", tableName, e.getMessage()));
         }
-
     }
 
     @Override

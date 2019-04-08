@@ -16,7 +16,7 @@ public class Exit implements Command {
 
     @Override
     public void executionCommand(String command) {
-        message.write("Вы вышли из программы, спасибо что воспользовались моим продуктом");
+        message.write("Вы вышли из программы, спасибо что воспользовались нашим продуктом");
         throw new ExitException();
     }
 

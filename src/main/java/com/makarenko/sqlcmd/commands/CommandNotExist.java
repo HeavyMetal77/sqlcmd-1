@@ -2,7 +2,7 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.view.Message;
 
-public class CommandNotExist implements Command {
+public class CommandNotExist extends NullFormat implements Command {
     Message message;
 
     public CommandNotExist(Message message) {
@@ -17,15 +17,5 @@ public class CommandNotExist implements Command {
     @Override
     public void executionCommand(String command) {
         message.write(String.format("Такой команды не существует '%s'", command));
-    }
-
-    @Override
-    public String formatCommand() {
-        return null;
-    }
-
-    @Override
-    public String depictionCommand() {
-        return null;
     }
 }

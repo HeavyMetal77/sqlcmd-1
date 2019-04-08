@@ -7,27 +7,29 @@ import com.makarenko.sqlcmd.view.Message;
 public class Controller {
     private Command[] commands;
     private Message message;
-
     public Controller(Message message, DatabaseManager databaseManager) {
+        Help help;
         this.message = message;
         this.commands = new Command[] {
+                help = new Help(message),
                 new Exit(message),
                 new Connect(databaseManager, message),
                 new isConnected(databaseManager, message),
-                new Delete(message, databaseManager),
-                new Update(message, databaseManager),
-                new Insert(message, databaseManager),
-                new Find(message, databaseManager),
-                new Create(message, databaseManager),
                 new List(message, databaseManager),
+                new Create(message, databaseManager),
+                new Find(message, databaseManager),
+                new Insert(message, databaseManager),
+                new Update(message, databaseManager),
+                new Delete(message, databaseManager),
                 new Drop(message, databaseManager),
                 new Clear(message, databaseManager),
                 new CommandNotExist(message),
         };
+        help.setCommands(commands);
     }
 
     public void run() {
-        message.write("Добро пожаловать в программу 'SQLCMD' \n");
+        message.write("Добро пожаловать в программу 'SQLCMD'");
 
         try {
             while (true) {
