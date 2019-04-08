@@ -21,5 +21,7 @@ public interface DatabaseManager {
 
     void insert(String tableName, Map<String, Object> row) throws SQLException;
 
-    void updateRow(String tableName, String keyName, String keyValue, Map<String,Object> columnData) throws SQLException;
+    void update(String tableName, String keyName, String keyValue, Map<String,Object> columnData) throws SQLException;
+
+    void delete(String tableName, String columnName, String columnValue) throws SQLException;
 }

@@ -14,6 +14,7 @@ public class Controller {
                 new Exit(message),
                 new Connect(databaseManager, message),
                 new isConnected(databaseManager, message),
+                new Delete(message, databaseManager),
                 new Update(message, databaseManager),
                 new Insert(message, databaseManager),
                 new Find(message, databaseManager),
@@ -26,7 +27,7 @@ public class Controller {
     }
 
     public void run() {
-        message.write("Добро пожаловать в программу 'SQLCMD'");
+        message.write("Добро пожаловать в программу 'SQLCMD' \n");
 
         try {
             while (true) {

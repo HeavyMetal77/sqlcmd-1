@@ -36,8 +36,8 @@ public class JDBCDatabaseManager implements DatabaseManager {
     @Override
     public void createTable(String tableName, String keyName, Map<String, Object> columns) throws SQLException {
         Statement stmt = connection.createStatement();
-
         String result = "";
+
         for (Map.Entry<String, Object> pair : columns.entrySet()) {
             result += ", " + pair.getKey() + " " + pair.getValue();
         }
@@ -98,7 +98,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void updateRow(String tableName, String keyName, String keyValue, Map<String, Object> column) throws SQLException {
+    public void update(String tableName, String keyName, String keyValue, Map<String, Object> column) throws SQLException {
         Statement statement = connection.createStatement();
         for (Map.Entry<String, Object> pair : column.entrySet()) {
             statement.executeUpdate("UPDATE " + tableName +
@@ -106,6 +106,14 @@ public class JDBCDatabaseManager implements DatabaseManager {
                     "' WHERE " + keyName + " = '" + keyValue + "'");
         }
         statement.close();
+    }
+
+    @Override
+    public void delete(String tableName, String columnName, String columnValue) throws SQLException {
+        String sql = "DELETE FROM " + tableName + " WHERE " + columnName + " = '" + columnValue + "'";
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate(sql);
+        stmt.close();
     }
 
     @Override

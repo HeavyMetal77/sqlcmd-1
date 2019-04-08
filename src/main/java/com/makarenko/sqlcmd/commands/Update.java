@@ -36,7 +36,7 @@ public class Update implements Command {
             columnData.put(data[index], data[index + 1]);
         }
         try {
-            databaseManager.updateRow(tableName, keyName, keyValue, columnData);
+            databaseManager.update(tableName, keyName, keyValue, columnData);
             message.write("Все записи успешно обновлены.");
         } catch (SQLException e) {
             message.write(String.format("Не удалось обновить по причине %s", e.getMessage()));
