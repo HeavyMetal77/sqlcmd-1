@@ -31,23 +31,32 @@ public class Controller {
     public void run() {
         message.write("Добро пожаловать в программу 'SQLCMD'");
 
-        try {
-            while (true) {
-                message.write("Введите команду или help для помощи");
-                String input = message.read();
-                if (input == null) {
-                    new Exit(message).beginCommand(input);
-                }
-
-                for (Command command : commands) {
+        while (true) {
+            String input = message.read();
+            for (Command command : commands) {
+                try {
                     if (command.beginCommand(input)) {
                         command.executionCommand(input);
                         break;
                     }
+                } catch (Exception e) {
+                    if (e instanceof ExitException) {
+                        throw e;
+                    }
+                    printError(e);
+                    break;
                 }
             }
-        } catch (ExitException e) {
-            e.getMessage();
+            message.write("Введи команду (или help для помощи):");
         }
+    }
+
+    private void printError(Exception e) {
+        String error = e.getMessage();
+        Throwable cause = e.getCause();
+        if (cause != null) {
+            error += " " + cause.getMessage();
+        }
+        message.write("Неудача! по причине: " + error);
     }
 }

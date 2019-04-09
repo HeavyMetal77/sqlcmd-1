@@ -55,11 +55,13 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void clearTable(String tableName) throws SQLException {
+    public void clearTable(String tableName) {
         String sql = "DELETE FROM " + tableName;
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(sql);
-        statement.close();
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getLocalizedMessage());
+        }
     }
 
     @Override

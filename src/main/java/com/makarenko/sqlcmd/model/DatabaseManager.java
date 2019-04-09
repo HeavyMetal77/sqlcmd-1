@@ -15,7 +15,7 @@ public interface DatabaseManager {
 
     void dropTable(String tableName) throws SQLException;
 
-    void clearTable(String tableName) throws SQLException;
+    void clearTable(String tableName);
 
     void findTable(String tableName) throws SQLException;
 

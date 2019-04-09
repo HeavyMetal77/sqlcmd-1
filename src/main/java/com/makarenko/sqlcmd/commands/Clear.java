@@ -2,7 +2,6 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
-import java.sql.SQLException;
 
 public class Clear implements Command {
     private Message message;
@@ -30,13 +29,8 @@ public class Clear implements Command {
             return;
         }
 
-        try {
-            databaseManager.clearTable(tableName);
-            message.write(String.format("Таблица '%s' успешно очищена", tableName));
-        } catch (SQLException e) {
-            message.write(String.format(
-                    "Не удалось очистить таблицу '%s' по причине '%s'", tableName, e.getMessage()));
-        }
+        databaseManager.clearTable(tableName);
+        message.write(String.format("Таблица '%s' успешно очищена", tableName));
     }
 
     @Override
