@@ -1,7 +1,6 @@
 package com.makarenko.sqlcmd.model;
 
-import com.makarenko.sqlcmd.view.PrintDataTable;
-
+import com.makarenko.sqlcmd.view.PrintTable;
 import java.sql.*;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -68,7 +67,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
         String sql = "SELECT * FROM " + tableName;
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
-        PrintDataTable.printResultSet(resultSet);
+        PrintTable.printResultSet(resultSet);
         statement.close();
         resultSet.close();
     }

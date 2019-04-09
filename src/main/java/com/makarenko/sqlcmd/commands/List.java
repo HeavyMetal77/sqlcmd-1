@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.Set;
 
 public class List implements Command {
-    Message message;
-    DatabaseManager databaseManager;
+    private Message message;
+    private DatabaseManager databaseManager;
 
     public List(Message message, DatabaseManager databaseManager) {
         this.message = message;

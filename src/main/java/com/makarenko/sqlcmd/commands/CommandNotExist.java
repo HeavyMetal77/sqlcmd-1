@@ -3,7 +3,7 @@ package com.makarenko.sqlcmd.commands;
 import com.makarenko.sqlcmd.view.Message;
 
 public class CommandNotExist extends NullFormat implements Command {
-    Message message;
+    private Message message;
 
     public CommandNotExist(Message message) {
         this.message = message;

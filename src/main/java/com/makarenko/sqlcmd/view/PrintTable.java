@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrintDataTable {
+public class PrintTable {
     private static class Column {
 
         private String label;

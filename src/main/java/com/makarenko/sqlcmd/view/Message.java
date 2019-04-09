@@ -1,7 +1,8 @@
 package com.makarenko.sqlcmd.view;
 
 public interface Message {
-    void write(String message);
-    String read();
 
+    void write(String message);
+
+    String read();
 }

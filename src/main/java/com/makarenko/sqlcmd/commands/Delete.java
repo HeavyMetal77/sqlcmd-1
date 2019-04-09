@@ -2,12 +2,11 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
-
 import java.sql.SQLException;
 
 public class Delete implements Command {
-    Message message;
-    DatabaseManager databaseManager;
+    private Message message;
+    private DatabaseManager databaseManager;
 
     public Delete(Message message, DatabaseManager databaseManager) {
         this.message = message;

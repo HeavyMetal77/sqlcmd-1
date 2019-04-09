@@ -3,8 +3,8 @@ package com.makarenko.sqlcmd.commands;
 import com.makarenko.sqlcmd.view.Message;
 
 public class Help extends NullFormat implements Command {
-    Message message;
-    Command[] commands;
+    private Message message;
+    private Command[] commands;
 
     public void setCommands(Command[] commands) {
         this.commands = commands;

@@ -3,7 +3,7 @@ package com.makarenko.sqlcmd.commands;
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
 
-public class isConnected implements Command {
+public class isConnected extends NullFormat implements Command {
     private DatabaseManager databaseManager;
     private Message message;
 
@@ -21,15 +21,5 @@ public class isConnected implements Command {
     public void executionCommand(String command) {
         message.write(String.format("Вы не можете воспользоваться этой командой '%s' " +
                 "пока не подключились к базе даных", command));
-    }
-
-    @Override
-    public String formatCommand() {
-        return null;
-    }
-
-    @Override
-    public String depictionCommand() {
-        return null;
     }
 }

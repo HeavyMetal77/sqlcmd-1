@@ -7,8 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Create implements Command {
-    Message message;
-    DatabaseManager databaseManager;
+    private Message message;
+    private DatabaseManager databaseManager;
 
     public Create(Message message, DatabaseManager databaseManager) {
         this.message = message;

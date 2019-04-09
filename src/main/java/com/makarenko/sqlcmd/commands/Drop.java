@@ -5,8 +5,8 @@ import com.makarenko.sqlcmd.view.Message;
 import java.sql.SQLException;
 
 public class Drop implements Command {
-    Message message;
-    DatabaseManager databaseManager;
+    private Message message;
+    private DatabaseManager databaseManager;
 
     public Drop(Message message, DatabaseManager databaseManager) {
         this.message = message;
