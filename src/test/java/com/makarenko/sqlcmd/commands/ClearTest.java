@@ -4,7 +4,6 @@ import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
 import org.junit.Before;
 import org.junit.Test;
-import java.sql.SQLException;
 import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -42,25 +41,25 @@ public class ClearTest {
 
 
     @Test
-    public void testBeginCommandClear() {
+    public void testBeginCommand() {
         boolean beginCommand = command.beginCommand("clear|");
         assertTrue(beginCommand);
     }
 
     @Test
-    public void testBeginCommandErrorClear() {
+    public void testBeginCommandError() {
         boolean beginCommandError = command.beginCommand("clqear|");
         assertFalse(beginCommandError);
     }
 
     @Test
-    public void testWithoutParameterCommandClear() {
+    public void testWithoutParameterCommand() {
         boolean commandWithout = command.beginCommand("clear");
         assertFalse(commandWithout);
     }
 
     @Test
-    public void testWithParameterCommandErrorClear() {
+    public void testWithParameterCommandError() {
         try {
             command.executionCommand("clear|book|qw");
         } catch (IllegalArgumentException e) {

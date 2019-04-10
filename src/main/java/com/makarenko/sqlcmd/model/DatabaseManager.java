@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public interface DatabaseManager {
-    void connect(String database, String userName, String password) throws SQLException, ClassNotFoundException;
+    void connect(String database, String userName, String password);
 
     boolean isConnected();
 

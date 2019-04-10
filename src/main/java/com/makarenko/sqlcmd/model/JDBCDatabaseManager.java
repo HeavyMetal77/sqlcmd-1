@@ -10,12 +10,19 @@ import java.util.Set;
 public class JDBCDatabaseManager implements DatabaseManager {
     Connection connection;
 
-    public void connect(String database, String userName, String password) throws SQLException, ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
+    public void connect(String database, String userName, String password) {
+        try {
+            Class.forName("org.postgresql.Driver");
         if (connection != null) connection.close();
-
-        connection = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/" + database, userName, password);
+            connection = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/" + database, userName, password);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Установите JDBC драйвер", e);
+        } catch (SQLException e) {
+            connection = null;
+            throw new RuntimeException(String.format(
+                    "Не удалось подключиться к базе данных '%s' ", database), e);
+        }
     }
 
     @Override

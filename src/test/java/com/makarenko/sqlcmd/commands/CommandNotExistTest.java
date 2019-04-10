@@ -8,8 +8,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class CommandNotExistTest {
-    Message message;
-    Command command;
+    private Message message;
+    private Command command;
 
     @Before
     public void setUp() {
@@ -18,13 +18,13 @@ public class CommandNotExistTest {
     }
 
     @Test
-    public void beginCommandTest() {
+    public void testBeginCommand() {
         boolean beginCommand = command.beginCommand("");
         assertTrue(beginCommand);
     }
 
     @Test
-    public void executionCommandTest() {
+    public void testExecutionCommand() {
         command.executionCommand("isNotUnsupportedCommand");
         verify(message).write("Такой команды не существует 'isNotUnsupportedCommand'");
     }

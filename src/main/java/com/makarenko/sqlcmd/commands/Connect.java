@@ -2,7 +2,6 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
-import java.sql.SQLException;
 
 public class Connect implements Command {
     private Message message;
@@ -30,14 +29,8 @@ public class Connect implements Command {
         String userName = data[2];
         String password = data[3];
 
-        try {
-            databaseManager.connect(database, userName, password);
-            message.write(String.format("Подключение к базе даных '%s' произошло успешно", database));
-        } catch (SQLException e) {
-            message.write(String.format("Не удалось подключиться к базе данных '%s' по причине '%s'", database, e.getMessage()));
-        } catch (ClassNotFoundException e) {
-            message.write(String.format("Нет файла jdbc.jar, добавте его в библиотеку"));
-        }
+        databaseManager.connect(database, userName, password);
+        message.write(String.format("Подключение к базе даных '%s' произошло успешно", database));
     }
 
     @Override
