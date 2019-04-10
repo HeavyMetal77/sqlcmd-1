@@ -2,7 +2,6 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
-import java.sql.SQLException;
 
 public class Drop implements Command {
     private Message message;
@@ -21,8 +20,9 @@ public class Drop implements Command {
     @Override
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
-        if (!isCorrectCommand(command, data)) {
-            return;
+        if (data.length != 2) {
+            throw new IllegalArgumentException(String.format("Вы неверно ввели команду '%s', " +
+                    "а должно быть drop|tableName", command));
         }
 
         String tableName = data[1];
@@ -30,13 +30,8 @@ public class Drop implements Command {
             return;
         }
 
-        try {
-            databaseManager.dropTable(tableName);
-            message.write(String.format("Таблица '%s' успешно удалена", tableName));
-        } catch (SQLException e) {
-            message.write(String.format(
-                    "Не удалось удалить таблицу '%s' по причине '%s'", tableName, e.getMessage()));
-        }
+        databaseManager.dropTable(tableName);
+        message.write(String.format("Таблица '%s' успешно удалена", tableName));
     }
 
     @Override
@@ -47,14 +42,6 @@ public class Drop implements Command {
     @Override
     public String depictionCommand() {
         return "Удаление таблицы";
-    }
-
-    private boolean isCorrectCommand(String command, String data[]) {
-        if (data.length != 2) {
-            message.write(String.format("Вы неверно ввели команду '%s', а должно быть drop|tableName", command));
-            return false;
-        }
-        return true;
     }
 
     private boolean confirmed(String tableName) {

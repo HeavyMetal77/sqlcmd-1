@@ -58,11 +58,13 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void dropTable(String tableName) throws SQLException {
+    public void dropTable(String tableName) {
         String sql = "DROP TABLE ";
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(sql + tableName);
-        statement.close();
+        try (Statement statement = connection.createStatement()){
+            statement.executeUpdate(sql + tableName);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getLocalizedMessage());
+        }
     }
 
     @Override

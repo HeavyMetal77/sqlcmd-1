@@ -13,7 +13,7 @@ public interface DatabaseManager {
 
     void createTable(String tableName, String keyName, Map<String, Object> columns);
 
-    void dropTable(String tableName) throws SQLException;
+    void dropTable(String tableName);
 
     void clearTable(String tableName);
 
