@@ -4,10 +4,7 @@ import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import java.sql.SQLException;
-
 import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -26,7 +23,7 @@ public class ClearTest {
     }
 
     @Test
-    public void testClearTableSuccessful() throws SQLException {
+    public void testClearTableSuccessful() {
         when(message.read()).thenReturn("car");
         command.executionCommand("clear|car");
         verify(message).write("Вы собираетесь очистить таблицу 'car'. Введите название таблицы для подтверждения");

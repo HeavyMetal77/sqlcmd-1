@@ -29,25 +29,30 @@ public class Controller {
     }
 
     public void run() {
-        message.write("Добро пожаловать в программу 'SQLCMD'");
+        try {
+            message.write("Добро пожаловать в программу 'SQLCMD'");
+            message.write("Для просмотра существующих команд введите: help");
 
-        while (true) {
-            String input = message.read();
-            for (Command command : commands) {
-                try {
-                    if (command.beginCommand(input)) {
-                        command.executionCommand(input);
+            while (true) {
+                String input = message.read();
+                for (Command command : commands) {
+                    try {
+                        if (command.beginCommand(input)) {
+                            command.executionCommand(input);
+                            break;
+                        }
+                    } catch (Exception e) {
+                        if (e instanceof ExitException) {
+                            throw e;
+                        }
+                        printError(e);
                         break;
                     }
-                } catch (Exception e) {
-                    if (e instanceof ExitException) {
-                        throw e;
-                    }
-                    printError(e);
-                    break;
                 }
+                message.write("Введи команду (или help для помощи):");
             }
-            message.write("Введи команду (или help для помощи):");
+        } catch (ExitException e) {
+
         }
     }
 

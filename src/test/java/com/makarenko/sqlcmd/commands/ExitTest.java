@@ -3,12 +3,11 @@ package com.makarenko.sqlcmd.commands;
 import com.makarenko.sqlcmd.view.Message;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class ExitTest {
@@ -16,8 +15,8 @@ public class ExitTest {
     private Command command;
 
     @Before
-    public void setUo() {
-        message = Mockito.mock(Message.class);
+    public void setUp() {
+        message = mock(Message.class);
         command = new Exit(message);
     }
 
