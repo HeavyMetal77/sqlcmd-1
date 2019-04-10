@@ -40,17 +40,21 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void createTable(String tableName, String keyName, Map<String, Object> columns) throws SQLException {
-        Statement stmt = connection.createStatement();
-        String result = "";
+    public void createTable(String tableName, String keyName, Map<String, Object> columns) {
+        try {
+            Statement stmt = connection.createStatement();
+            String result = "";
 
-        for (Map.Entry<String, Object> pair : columns.entrySet()) {
-            result += ", " + pair.getKey() + " " + pair.getValue();
+            for (Map.Entry<String, Object> pair : columns.entrySet()) {
+                result += ", " + pair.getKey() + " " + pair.getValue();
+            }
+
+            stmt.executeUpdate("CREATE TABLE " + tableName +
+                    " ( " + keyName + " INT PRIMARY KEY NOT NULL " + result + ")");
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getLocalizedMessage());
         }
-
-        stmt.executeUpdate("CREATE TABLE " + tableName +
-                " ( " + keyName + " INT PRIMARY KEY NOT NULL " + result + ")");
-        stmt.close();
     }
 
     @Override
@@ -117,11 +121,13 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void delete(String tableName, String columnName, String columnValue) throws SQLException {
+    public void delete(String tableName, String columnName, String columnValue) {
         String sql = "DELETE FROM " + tableName + " WHERE " + columnName + " = '" + columnValue + "'";
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate(sql);
-        stmt.close();
+        try (Statement stmt = connection.createStatement()){
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getLocalizedMessage());
+        }
     }
 
     @Override

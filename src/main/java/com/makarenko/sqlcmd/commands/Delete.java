@@ -2,7 +2,6 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
-import java.sql.SQLException;
 
 public class Delete implements Command {
     private Message message;
@@ -21,21 +20,17 @@ public class Delete implements Command {
     @Override
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
-        if (!isCorrectCommand(command, data)) {
-            return;
+        if (data.length != 4) {
+            throw new IllegalArgumentException(String.format("Вы неверно ввели команду '%s', " +
+                    "а должно быть delete|tableName|columnName|columnValue", command));
         }
 
         String tableName = data[1];
         String columnName = data[2];
         String columnValue = data[3];
 
-        try {
-            databaseManager.delete(tableName, columnName, columnValue);
-            message.write("Запись успешно удалена.");
-        } catch (SQLException e) {
-            message.write(String.format("Не удалось удалить запись в таблице '%s' по причине '%s'",
-                    tableName, e.getMessage()));
-        }
+        databaseManager.delete(tableName, columnName, columnValue);
+        message.write("Запись успешно удалена.");
     }
 
     @Override
@@ -46,14 +41,5 @@ public class Delete implements Command {
     @Override
     public String depictionCommand() {
         return "Удаление записи";
-    }
-
-    private boolean isCorrectCommand(String command, String data[]) {
-        if (data.length != 4) {
-            message.write(String.format("Вы неверно ввели команду '%s', " +
-                    "а должно быть delete|tableName|columnName|columnValue", command));
-            return false;
-        }
-        return true;
     }
 }

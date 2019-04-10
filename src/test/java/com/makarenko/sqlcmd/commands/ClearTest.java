@@ -61,9 +61,10 @@ public class ClearTest {
     @Test
     public void testWithParameterCommandError() {
         try {
-            command.executionCommand("clear|book|qw");
+            command.executionCommand("clear|");
+            fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("Вы неверно ввели команду 'clear|book|qw', а должно быть clear|tableName", e.getMessage());
+            assertEquals("Вы неверно ввели команду 'clear|', а должно быть clear|tableName", e.getMessage());
         }
     }
 
@@ -77,18 +78,5 @@ public class ClearTest {
     public void testDepictionCommand() {
         String formatCommand = command.depictionCommand();
         assertEquals(formatCommand, "Очистка таблицы");
-    }
-
-    @Test
-    public void testClearException() {
-        when(message.read()).thenReturn("home");
-        command.executionCommand("clear|home");
-        verify(message).write("Вы собираетесь очистить таблицу 'home'. Введите название таблицы для подтверждения");
-        try {
-            verify(databaseManager).clearTable("home");
-        } catch (Exception e) {
-            verify(message).write("Неудача! по причине: ERROR: relation \"home\" does not exist\n" +
-                    "  Позиция: 13");
-        }
     }
 }

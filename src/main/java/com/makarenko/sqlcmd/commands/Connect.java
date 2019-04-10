@@ -21,8 +21,8 @@ public class Connect implements Command {
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
         if (data.length != 4) {
-            isCorrectCommand(command);
-            return;
+            throw new IllegalArgumentException(String.format(
+                    "вы неверно ввели команду '%s', а должно быть connect|database|user|password", command));
         }
 
         String database = data[1];
@@ -41,10 +41,5 @@ public class Connect implements Command {
     @Override
     public String depictionCommand() {
         return "Подключение к базе данных";
-    }
-
-    private void isCorrectCommand(String command) {
-        message.write(String.format("вы неверно ввели команду " +
-                "'%s', а должно быть connect|database|user|password", command));
     }
 }

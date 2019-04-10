@@ -20,8 +20,9 @@ public class Clear implements Command {
     @Override
     public void executionCommand(String command) {
         String data[] = command.split("\\|");
-        if (!isCorrectCommand(command, data)) {
-            return;
+        if (data.length != 2) {
+            throw new IllegalArgumentException
+                    (String.format("Вы неверно ввели команду '%s', а должно быть clear|tableName", command));
         }
 
         String tableName = data[1];
@@ -41,14 +42,6 @@ public class Clear implements Command {
     @Override
     public String depictionCommand() {
         return "Очистка таблицы";
-    }
-
-    private boolean isCorrectCommand(String command, String data[]) {
-        if (data.length != 2) {
-            message.write(String.format("Вы неверно ввели команду '%s', а должно быть clear|tableName", command));
-            return false;
-        }
-        return true;
     }
 
     private boolean confirmed(String tableName) {

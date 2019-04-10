@@ -11,7 +11,7 @@ public interface DatabaseManager {
 
     Set<String> listTables() throws SQLException;
 
-    void createTable(String tableName, String keyName, Map<String, Object> columns) throws SQLException;
+    void createTable(String tableName, String keyName, Map<String, Object> columns);
 
     void dropTable(String tableName) throws SQLException;
 
@@ -23,5 +23,5 @@ public interface DatabaseManager {
 
     void update(String tableName, String keyName, String keyValue, Map<String,Object> columnData) throws SQLException;
 
-    void delete(String tableName, String columnName, String columnValue) throws SQLException;
+    void delete(String tableName, String columnName, String columnValue);
 }
