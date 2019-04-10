@@ -17,7 +17,7 @@ public class Controller {
                 new isConnected(databaseManager, message),
                 new List(message, databaseManager),
                 new Create(message, databaseManager),
-                new Find(message, databaseManager),
+                new Find(databaseManager),
                 new Insert(message, databaseManager),
                 new Update(message, databaseManager),
                 new Delete(message, databaseManager),

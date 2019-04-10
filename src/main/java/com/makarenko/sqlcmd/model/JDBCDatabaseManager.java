@@ -78,13 +78,15 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void findTable(String tableName) throws SQLException {
+    public void findTable(String tableName) {
         String sql = "SELECT * FROM " + tableName;
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
-        PrintTable.printResultSet(resultSet);
-        statement.close();
-        resultSet.close();
+        try (Statement statement = connection.createStatement()){
+            ResultSet resultSet = statement.executeQuery(sql);
+            PrintTable.printResultSet(resultSet);
+            resultSet.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getLocalizedMessage());
+        }
     }
 
     @Override

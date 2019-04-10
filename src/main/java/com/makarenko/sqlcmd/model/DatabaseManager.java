@@ -17,7 +17,7 @@ public interface DatabaseManager {
 
     void clearTable(String tableName);
 
-    void findTable(String tableName) throws SQLException;
+    void findTable(String tableName);
 
     void insert(String tableName, Map<String, Object> row) throws SQLException;
 
