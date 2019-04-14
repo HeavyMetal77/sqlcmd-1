@@ -46,17 +46,17 @@ public class DropTest {
     public void testDropTableSuccessful() {
         when(message.read()).thenReturn("car");
         command.executionCommand("drop|car");
-        verify(message).write("Вы собираетесь удалить таблицу 'car'. Введите название таблицы для подтверждения");
+        verify(message).write("You want to delete the table 'car'? Enter the name of the table to confirm");
         verify(databaseManager).dropTable("car");
-        verify(message).write("Таблица 'car' успешно удалена");
+        verify(message).write("Table 'car' successfully deleted");
     }
 
     @Test
     public void testDropTableNotSuccessful() {
         when(message.read()).thenReturn("d");
         command.executionCommand("drop|car");
-        verify(message).write("Вы собираетесь удалить таблицу 'car'. Введите название таблицы для подтверждения");
-        verify(message).write("Удаление отменено");
+        verify(message).write("You want to delete the table 'car'? Enter the name of the table to confirm");
+        verify(message).write("deletion canceled");
     }
 
     @Test
@@ -65,7 +65,9 @@ public class DropTest {
             command.executionCommand("drop|");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("Вы неверно ввели команду 'drop|', а должно быть drop|tableName", e.getMessage());
+            assertEquals(verify(message).getColorRed() +
+                    "This command 'drop|' wrong, should be: drop|tableName" +
+                    verify(message).getColorReset(), e.getMessage());
         }
     }
 
@@ -78,6 +80,6 @@ public class DropTest {
     @Test
     public void depictionCommand() {
         String depiction = command.depictionCommand();
-        assertEquals("Удаление таблицы", depiction);
+        assertEquals("Deleting a table", depiction);
     }
 }
