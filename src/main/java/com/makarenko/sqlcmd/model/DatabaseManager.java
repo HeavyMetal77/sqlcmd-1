@@ -9,7 +9,7 @@ public interface DatabaseManager {
 
     boolean isConnected();
 
-    Set<String> listTables() throws SQLException;
+    Set<String> listTables();
 
     void createTable(String tableName, String keyName, Map<String, Object> columns);
 
@@ -21,7 +21,7 @@ public interface DatabaseManager {
 
     void insert(String tableName, Map<String, Object> row);
 
-    void update(String tableName, String keyName, String keyValue, Map<String,Object> columnData) throws SQLException;
+    void update(String tableName, String keyName, String keyValue, Map<String,Object> columnData);
 
     void delete(String tableName, String columnName, String columnValue);
 }
