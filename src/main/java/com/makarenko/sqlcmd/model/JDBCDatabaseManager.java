@@ -87,27 +87,31 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void insert(String tableName, Map<String, Object> row) throws SQLException {
-        Statement statement = connection.createStatement();
-        StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " (");
-        Iterator<String> iteratorKey = row.keySet().iterator();
-        while (iteratorKey.hasNext()) {
-            sql.append(iteratorKey.next());
-            if (iteratorKey.hasNext()) {
-                sql.append(", ");
+    public void insert(String tableName, Map<String, Object> row) {
+        try {
+            Statement statement = connection.createStatement();
+            StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " (");
+            Iterator<String> iteratorKey = row.keySet().iterator();
+            while (iteratorKey.hasNext()) {
+                sql.append(iteratorKey.next());
+                if (iteratorKey.hasNext()) {
+                    sql.append(", ");
+                }
             }
-        }
-        sql.append(") VALUES (");
-        Iterator<Object> iteratorValue = row.values().iterator();
-        while (iteratorValue.hasNext()) {
-            sql.append("'" + iteratorValue.next() + "'");
-            if (iteratorValue.hasNext()) {
-                sql.append(", ");
+            sql.append(") VALUES (");
+            Iterator<Object> iteratorValue = row.values().iterator();
+            while (iteratorValue.hasNext()) {
+                sql.append("'" + iteratorValue.next() + "'");
+                if (iteratorValue.hasNext()) {
+                    sql.append(", ");
+                }
             }
+            sql.append(")").toString();
+            statement.executeUpdate(String.valueOf(sql));
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getLocalizedMessage());
         }
-        sql.append(")").toString();
-        statement.executeUpdate(String.valueOf(sql));
-        statement.close();
     }
 
     @Override

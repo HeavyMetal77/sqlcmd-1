@@ -19,7 +19,7 @@ public interface DatabaseManager {
 
     void findTable(String tableName);
 
-    void insert(String tableName, Map<String, Object> row) throws SQLException;
+    void insert(String tableName, Map<String, Object> row);
 
     void update(String tableName, String keyName, String keyValue, Map<String,Object> columnData) throws SQLException;
 
