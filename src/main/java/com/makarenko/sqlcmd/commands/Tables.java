@@ -5,18 +5,18 @@ import com.makarenko.sqlcmd.view.Message;
 import java.sql.SQLException;
 import java.util.Set;
 
-public class List implements Command {
+public class Tables implements Command {
     private Message message;
     private DatabaseManager databaseManager;
 
-    public List(Message message, DatabaseManager databaseManager) {
+    public Tables(Message message, DatabaseManager databaseManager) {
         this.message = message;
         this.databaseManager = databaseManager;
     }
 
     @Override
     public boolean beginCommand(String command) {
-        return command.startsWith("tables");
+        return command.equals("tables");
     }
 
     @Override

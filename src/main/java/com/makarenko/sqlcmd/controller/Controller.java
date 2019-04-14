@@ -3,19 +3,22 @@ package com.makarenko.sqlcmd.controller;
 import com.makarenko.sqlcmd.commands.*;
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Controller {
-    private Command[] commands;
+    private List<Command> commands;
     private Message message;
+
     public Controller(Message message, DatabaseManager databaseManager) {
-        Help help;
         this.message = message;
-        this.commands = new Command[] {
-                help = new Help(message),
+        this.commands = new ArrayList<>(Arrays.asList(
                 new Connect(databaseManager, message),
+                new Help(message),
                 new Exit(message),
                 new isConnected(databaseManager, message),
-                new List(message, databaseManager),
+                new Tables(message, databaseManager),
                 new Create(message, databaseManager),
                 new Find(databaseManager),
                 new Insert(message, databaseManager),
@@ -23,9 +26,8 @@ public class Controller {
                 new Delete(message, databaseManager),
                 new Drop(message, databaseManager),
                 new Clear(message, databaseManager),
-                new CommandNotExist(message),
-        };
-        help.setCommands(commands);
+                new CommandNotExist(message)
+                ));
     }
 
     public void run() {

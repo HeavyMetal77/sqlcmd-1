@@ -37,4 +37,9 @@ public class HelpTest {
             assertEquals("Такой команды не существует 'helpp'", e.getMessage());
         }
     }
+
+    @Test
+    public void testExecutionCommand() {
+        command.executionCommand("help");
+    }
 }

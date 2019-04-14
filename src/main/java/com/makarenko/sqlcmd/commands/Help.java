@@ -1,17 +1,30 @@
 package com.makarenko.sqlcmd.commands;
 
+import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Help extends NullFormat implements Command {
     private Message message;
-    private Command[] commands;
+    private List<Command> commands;
 
     public Help(Message message) {
+        DatabaseManager databaseManager = null;
         this.message = message;
-    }
-
-    public void setCommands(Command[] commands) {
-        this.commands = commands;
+        this.commands = new ArrayList<>(Arrays.asList(
+                new Connect(databaseManager, message),
+                new Tables(message, databaseManager),
+                new Create(message, databaseManager),
+                new Find(databaseManager),
+                new Insert(message, databaseManager),
+                new Update(message, databaseManager),
+                new Delete(message, databaseManager),
+                new Drop(message, databaseManager),
+                new Clear(message, databaseManager),
+                new Exit(message)
+        ));
     }
 
     @Override

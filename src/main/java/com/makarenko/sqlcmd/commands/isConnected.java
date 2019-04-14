@@ -19,7 +19,6 @@ public class isConnected extends NullFormat implements Command {
 
     @Override
     public void executionCommand(String command) {
-        message.write(String.format("Вы не можете воспользоваться этой командой '%s' " +
-                "пока не подключились к базе даных", command));
+        message.write("Вы не можете воспользоваться командами пока не подключились к базе даных");
     }
 }
