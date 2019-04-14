@@ -2,10 +2,7 @@ package com.makarenko.sqlcmd.model;
 
 import com.makarenko.sqlcmd.view.PrintTable;
 import java.sql.*;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class JDBCDatabaseManager implements DatabaseManager {
     Connection connection;

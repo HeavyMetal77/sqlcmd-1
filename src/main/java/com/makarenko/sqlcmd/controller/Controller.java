@@ -12,8 +12,8 @@ public class Controller {
         this.message = message;
         this.commands = new Command[] {
                 help = new Help(message),
-                new Exit(message),
                 new Connect(databaseManager, message),
+                new Exit(message),
                 new isConnected(databaseManager, message),
                 new List(message, databaseManager),
                 new Create(message, databaseManager),

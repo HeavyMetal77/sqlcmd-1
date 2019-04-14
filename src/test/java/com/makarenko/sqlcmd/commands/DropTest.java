@@ -32,7 +32,7 @@ public class DropTest {
 
     @Test
     public void testBeginCommandError() {
-        boolean beginCommand = command.beginCommand("dropp|");
+        boolean beginCommand = command.beginCommand("droop|");
         assertFalse(beginCommand);
     }
 

@@ -31,14 +31,14 @@ public class FindTest {
 
     @Test
     public void testBeginCommandError() {
-        boolean beginCommand = command.beginCommand("fand|");
-        assertFalse(beginCommand);
+        boolean beginCommandError = command.beginCommand("fand|");
+        assertFalse(beginCommandError);
     }
 
     @Test
     public void testWithoutParameterCommand() {
-        boolean beginCommand = command.beginCommand("find");
-        assertFalse(beginCommand);
+        boolean beginCommandWithout = command.beginCommand("find");
+        assertFalse(beginCommandWithout);
     }
 
     @Test

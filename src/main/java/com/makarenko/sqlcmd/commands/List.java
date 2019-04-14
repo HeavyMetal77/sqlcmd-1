@@ -26,11 +26,12 @@ public class List implements Command {
             if(tables.size() == 0) {
                 message.write("В этой базе данных нет таблиц.");
             }
-            message.write(tables.toString());
+            message.write(tables.toString().
+                    replace("[", "| ").
+                    replace("]", " |"));
         } catch (SQLException e) {
             message.write(String.format("Не удалось вывести список всех таблиц по причине '%s'", e.getMessage()));
         }
-
     }
 
     @Override
