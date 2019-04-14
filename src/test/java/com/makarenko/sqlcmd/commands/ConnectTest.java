@@ -41,7 +41,7 @@ public class ConnectTest {
     @Test
     public void testExecutionCommandSuccessful() {
         command.executionCommand("connect|sqlcmd|postgres|postgres");
-        verify(message).write("Подключение к базе даных 'sqlcmd' произошло успешно");
+        verify(message).write("Database connection 'sqlcmd' was successful");
     }
 
     @Test
@@ -50,8 +50,10 @@ public class ConnectTest {
             command.executionCommand("connect|sqlcmd|postgres");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("вы неверно ввели команду 'connect|sqlcmd|postgres', " +
-                    "а должно быть connect|database|user|password", e.getMessage());
+            assertEquals(verify(message).getColorRed() +
+                    "This command 'connect|sqlcmd|postgres' wrong, " +
+                    "should be: connect|database|user|password" +
+                    verify(message).getColorReset(), e.getMessage());
         }
     }
 
@@ -64,6 +66,6 @@ public class ConnectTest {
     @Test
     public void testDepictionCommand() {
         String depiction = command.depictionCommand();
-        assertEquals(depiction, "Подключение к базе данных");
+        assertEquals(depiction, "Database connection");
     }
 }

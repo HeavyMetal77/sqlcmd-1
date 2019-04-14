@@ -25,9 +25,9 @@ public class ClearTest {
     public void testClearTableSuccessful() {
         when(message.read()).thenReturn("car");
         command.executionCommand("clear|car");
-        verify(message).write("Вы собираетесь очистить таблицу 'car'. Введите название таблицы для подтверждения");
+        verify(message).write("You want to clear the table 'car'? Enter the name of the table to confirm");
         verify(databaseManager).clearTable("car");
-        verify(message).write("Таблица 'car' успешно очищена");
+        verify(message).write("Table 'car' successfully cleared");
     }
 
 
@@ -35,8 +35,8 @@ public class ClearTest {
     public void testClearTableNotSuccessful() {
         when(message.read()).thenReturn("d");
         command.executionCommand("clear|car");
-        verify(message).write("Вы собираетесь очистить таблицу 'car'. Введите название таблицы для подтверждения");
-        verify(message).write("Очистка отменена");
+        verify(message).write("You want to clear the table 'car'? Enter the name of the table to confirm");
+        verify(message).write("cleaning canceled");
     }
 
 
@@ -64,7 +64,9 @@ public class ClearTest {
             command.executionCommand("clear|");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("Вы неверно ввели команду 'clear|', а должно быть clear|tableName", e.getMessage());
+            assertEquals(verify(message).getColorRed() +
+                    "This command 'clear|' wrong, should be: clear|tableName" +
+                    verify(message).getColorReset(), e.getMessage());
         }
     }
 
@@ -77,6 +79,6 @@ public class ClearTest {
     @Test
     public void testDepictionCommand() {
         String formatCommand = command.depictionCommand();
-        assertEquals(formatCommand, "Очистка таблицы");
+        assertEquals(formatCommand, "Table cleaning");
     }
 }

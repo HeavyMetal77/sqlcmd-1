@@ -5,9 +5,6 @@ import com.makarenko.sqlcmd.view.Message;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.*;
@@ -53,7 +50,7 @@ public class DeleteTest {
 
         command.executionCommand("delete|car|id|1");
         verify(databaseManager).delete(tableName, columnName, columnValue);
-        verify(message).write("Запись успешно удалена.");
+        verify(message).write("Record successfully deleted");
     }
 
     @Test
@@ -62,8 +59,9 @@ public class DeleteTest {
             command.executionCommand("delete|");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("Вы неверно ввели команду 'delete|', " +
-                    "а должно быть delete|tableName|columnName|columnValue", e.getMessage());
+            assertEquals(verify(message).getColorRed() + "This command 'delete|' wrong, " +
+                    "should be: delete|tableName|columnName|columnValue" + verify(message).getColorReset()
+                    , e.getMessage());
         }
     }
 
@@ -76,6 +74,6 @@ public class DeleteTest {
     @Test
     public void depictionCommand() {
         String depiction = command.depictionCommand();
-        assertEquals("Удаление записи", depiction);
+        assertEquals("Delete record", depiction);
     }
 }

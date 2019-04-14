@@ -53,7 +53,7 @@ public class CreateTest {
 
         command.executionCommand("create|people|id|name|text");
         verify(databaseManager).createTable(tableName, keyName, columns);
-        verify(message).write("Таблица 'people' успешно создана");
+        verify(message).write("Table 'people' created successfully");
     }
 
     @Test
@@ -62,10 +62,10 @@ public class CreateTest {
             command.executionCommand("create|people");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("Вы неверно ввели команду " +
-                    "'create|people', а должно быть " +
+            assertEquals(verify(message).getColorRed() + "This command 'create|people' wrong" +
+                    ", should be: " +
                     "create|tableName|primaryKeyName|columnName1|columnValue1|" +
-                    "....|columnNameN|columnValueN", e.getMessage());
+                    "....|columnNameN|columnValueN" + verify(message).getColorReset(), e.getMessage());
         }
     }
 
@@ -79,6 +79,6 @@ public class CreateTest {
     @Test
     public void testDepictionCommand() {
         String depictionCommand = command.depictionCommand();
-        assertEquals("Создание таблицы с данными", depictionCommand);
+        assertEquals("Creating a table with data", depictionCommand);
     }
 }

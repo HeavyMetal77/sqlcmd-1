@@ -26,6 +26,7 @@ public class CommandNotExistTest {
     @Test
     public void testExecutionCommand() {
         command.executionCommand("isNotUnsupportedCommand");
-        verify(message).write("Такой команды не существует 'isNotUnsupportedCommand'");
+        verify(message).write(message.getColorRed() +
+                "Nonexistent command: 'isNotUnsupportedCommand'" + message.getColorReset());
     }
 }

@@ -21,8 +21,8 @@ public class Clear implements Command {
     public void executionCommand(String command) {
         String data[] = command.split("\\|");
         if (data.length != 2) {
-            throw new IllegalArgumentException
-                    (String.format("Вы неверно ввели команду '%s', а должно быть clear|tableName", command));
+            throw new IllegalArgumentException(String.format(message.getColorRed() +
+                    "This command '%s' wrong, should be: clear|tableName" + message.getColorReset(), command));
         }
 
         String tableName = data[1];
@@ -31,7 +31,7 @@ public class Clear implements Command {
         }
 
         databaseManager.clearTable(tableName);
-        message.write(String.format("Таблица '%s' успешно очищена", tableName));
+        message.write(String.format("Table '%s' successfully cleared", tableName));
     }
 
     @Override
@@ -41,17 +41,17 @@ public class Clear implements Command {
 
     @Override
     public String depictionCommand() {
-        return "Очистка таблицы";
+        return "Table cleaning";
     }
 
     private boolean confirmed(String tableName) {
-        message.write(String.format("Вы собираетесь очистить таблицу '%s'. " +
-                "Введите название таблицы для подтверждения", tableName));
+        message.write(String.format("You want to clear the table '%s'? " +
+                "Enter the name of the table to confirm", tableName));
         String verification = message.read();
         if (verification.equals(tableName)) {
             return true;
         }
-        message.write("Очистка отменена");
+        message.write("cleaning canceled");
         return false;
     }
 }

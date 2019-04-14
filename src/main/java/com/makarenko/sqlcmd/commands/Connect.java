@@ -21,8 +21,9 @@ public class Connect implements Command {
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
         if (data.length != 4) {
-            throw new IllegalArgumentException(String.format(
-                    "вы неверно ввели команду '%s', а должно быть connect|database|user|password", command));
+            throw new IllegalArgumentException(String.format(message.getColorRed() +
+                    "This command '%s' wrong, should be: connect|database|user|password"
+                    + message.getColorReset(), command));
         }
 
         String database = data[1];
@@ -30,7 +31,7 @@ public class Connect implements Command {
         String password = data[3];
 
         databaseManager.connect(database, userName, password);
-        message.write(String.format("Подключение к базе даных '%s' произошло успешно", database));
+        message.write(String.format("Database connection '%s' was successful", database));
     }
 
     @Override
@@ -40,6 +41,6 @@ public class Connect implements Command {
 
     @Override
     public String depictionCommand() {
-        return "Подключение к базе данных";
+        return "Database connection";
     }
 }

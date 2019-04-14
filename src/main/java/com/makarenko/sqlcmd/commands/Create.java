@@ -23,9 +23,10 @@ public class Create implements Command {
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
         if (data.length < 3 || data.length % 2 != 1) {
-            throw new IllegalArgumentException(String.format("Вы неверно ввели команду " +
-                    "'%s', а должно быть " +
-                    "create|tableName|primaryKeyName|columnName1|columnValue1|....|columnNameN|columnValueN", command));
+            throw new IllegalArgumentException(String.format(message.getColorRed() + "This command '%s' wrong" +
+                    ", should be: " +
+                    "create|tableName|primaryKeyName|columnName1|columnValue1|....|columnNameN|columnValueN" +
+                    message.getColorReset(), command));
         }
 
         String tableName = data[1];
@@ -36,7 +37,7 @@ public class Create implements Command {
         }
 
         databaseManager.createTable(tableName, keyName, columns);
-        message.write(String.format("Таблица '%s' успешно создана", tableName));
+        message.write(String.format("Table '%s' created successfully", tableName));
     }
 
     @Override
@@ -46,6 +47,6 @@ public class Create implements Command {
 
     @Override
     public String depictionCommand() {
-        return "Создание таблицы с данными";
+        return "Creating a table with data";
     }
 }

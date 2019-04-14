@@ -5,7 +5,6 @@ import com.makarenko.sqlcmd.view.Message;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -30,6 +29,6 @@ public class isConnectedTest {
     @Test
     public void executionCommand() {
         command.executionCommand("connect");
-        verify(message).write("Вы не можете воспользоваться командами пока не подключились к базе даных");
+        verify(message).write("You cannot use commands. Connect to the database");
     }
 }

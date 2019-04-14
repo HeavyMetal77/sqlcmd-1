@@ -21,8 +21,8 @@ public class Delete implements Command {
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
         if (data.length != 4) {
-            throw new IllegalArgumentException(String.format("Вы неверно ввели команду '%s', " +
-                    "а должно быть delete|tableName|columnName|columnValue", command));
+            throw new IllegalArgumentException(String.format(message.getColorRed() + "This command '%s' wrong, " +
+                    "should be: delete|tableName|columnName|columnValue" + message.getColorReset(), command));
         }
 
         String tableName = data[1];
@@ -30,7 +30,7 @@ public class Delete implements Command {
         String columnValue = data[3];
 
         databaseManager.delete(tableName, columnName, columnValue);
-        message.write("Запись успешно удалена.");
+        message.write("Record successfully deleted");
     }
 
     @Override
@@ -40,6 +40,6 @@ public class Delete implements Command {
 
     @Override
     public String depictionCommand() {
-        return "Удаление записи";
+        return "Delete record";
     }
 }

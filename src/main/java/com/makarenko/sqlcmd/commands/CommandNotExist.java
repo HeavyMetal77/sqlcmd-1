@@ -16,6 +16,7 @@ public class CommandNotExist extends NullFormat implements Command {
 
     @Override
     public void executionCommand(String command) {
-        message.write(String.format("Такой команды не существует '%s'", command));
+        message.write(String.format(message.getColorRed() +
+                "Nonexistent command: '%s'" + message.getColorReset(), command));
     }
 }
