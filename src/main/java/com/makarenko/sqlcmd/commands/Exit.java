@@ -16,7 +16,7 @@ public class Exit implements Command {
 
     @Override
     public void executionCommand(String command) {
-        message.write("Вы вышли из программы, спасибо что воспользовались нашим продуктом");
+        message.write("Goodbye, thank you for using our product");
         throw new ExitException();
     }
 
@@ -27,6 +27,6 @@ public class Exit implements Command {
 
     @Override
     public String depictionCommand() {
-        return "Выход из программы";
+        return "Exit from the program";
     }
 }

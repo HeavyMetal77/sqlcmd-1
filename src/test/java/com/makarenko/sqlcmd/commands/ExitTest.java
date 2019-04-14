@@ -40,7 +40,7 @@ public class ExitTest {
         } catch (ExitException e) {
 
         }
-        verify(message).write("Вы вышли из программы, спасибо что воспользовались нашим продуктом");
+        verify(message).write("Goodbye, thank you for using our product");
     }
 
     @Test
@@ -52,6 +52,6 @@ public class ExitTest {
     @Test
     public void testDepictionCommand() {
         String formatCommand = command.depictionCommand();
-        assertEquals(formatCommand, "Выход из программы");
+        assertEquals(formatCommand, "Exit from the program");
     }
 }
