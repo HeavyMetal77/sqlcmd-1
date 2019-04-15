@@ -1,6 +1,5 @@
 package com.makarenko.sqlcmd.model;
 
-import java.sql.SQLException;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,7 +20,7 @@ public interface DatabaseManager {
 
     void insert(String tableName, Map<String, Object> row);
 
-    void update(String tableName, String keyName, String keyValue, Map<String,Object> columnData);
+    void update(String tableName, String keyName, String keyValue, Map<String, Object> columnData);
 
     void delete(String tableName, String columnName, String columnValue);
 }

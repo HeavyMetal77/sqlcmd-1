@@ -2,12 +2,15 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Insert implements Command {
     private Message message;
     private DatabaseManager databaseManager;
+    private MessageColor messageColor = new MessageColor();
 
     public Insert(Message message, DatabaseManager databaseManager) {
         this.message = message;
@@ -23,8 +26,8 @@ public class Insert implements Command {
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
         if (data.length < 3 || data.length % 2 == 1) {
-            throw new IllegalArgumentException(String.format("Вы неверно ввели команду '%s', " +
-                    "а должно быть insert|tableName|columnName1|columnValue1|...|columnNameN|columnValueN", command));
+            throw new IllegalArgumentException(messageColor.getErrorMessage(command) +
+                    "insert|tableName|columnName1|columnValue1|...|columnNameN|columnValueN");
         }
 
         String tableName = data[1];
@@ -34,7 +37,7 @@ public class Insert implements Command {
         }
 
         databaseManager.insert(tableName, row);
-        message.write(String.format("В таблицу '%s' успешно добавлены записи", tableName));
+        message.write(String.format("Records successfully added to the '%s'", tableName));
     }
 
     @Override
@@ -44,6 +47,6 @@ public class Insert implements Command {
 
     @Override
     public String depictionCommand() {
-        return "Вставка данных в таблицу";
+        return "Insert records in the table";
     }
 }

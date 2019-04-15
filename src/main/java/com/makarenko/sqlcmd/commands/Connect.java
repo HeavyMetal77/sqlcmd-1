@@ -2,10 +2,12 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 
 public class Connect implements Command {
     private Message message;
     private DatabaseManager databaseManager;
+    private MessageColor messageColor = new MessageColor();
 
     public Connect(DatabaseManager databaseManager, Message message) {
         this.message = message;
@@ -21,9 +23,8 @@ public class Connect implements Command {
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
         if (data.length != 4) {
-            throw new IllegalArgumentException(String.format(message.getColorRed() +
-                    "This command '%s' wrong, should be: connect|database|user|password"
-                    + message.getColorReset(), command));
+            throw new IllegalArgumentException(messageColor.getErrorMessage(command) +
+                    "connect|database|user|password");
         }
 
         String database = data[1];

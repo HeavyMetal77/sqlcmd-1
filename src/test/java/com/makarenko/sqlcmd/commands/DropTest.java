@@ -2,6 +2,7 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,12 +17,14 @@ public class DropTest {
     private Message message;
     private DatabaseManager databaseManager;
     private Command command;
+    private MessageColor messageColor;
 
     @Before
     public void setUp() {
         message = mock(Message.class);
         databaseManager = mock(DatabaseManager.class);
         command = new Drop(message, databaseManager);
+        messageColor = new MessageColor();
     }
 
     @Test
@@ -65,9 +68,8 @@ public class DropTest {
             command.executionCommand("drop|");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals(verify(message).getColorRed() +
-                    "This command 'drop|' wrong, should be: drop|tableName" +
-                    verify(message).getColorReset(), e.getMessage());
+            assertEquals(messageColor.getErrorMessage("drop|")
+                    + "drop|tableName", e.getMessage());
         }
     }
 

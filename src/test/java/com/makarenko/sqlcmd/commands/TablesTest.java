@@ -5,6 +5,8 @@ import com.makarenko.sqlcmd.view.Message;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Set;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -34,9 +36,16 @@ public class TablesTest {
     }
 
     @Test
-    public void executionCommand() {
+    public void testExecutionCommand() {
         command.executionCommand("tables");
         verify(databaseManager).listTables();
+    }
+
+    @Test
+    public void testExecutionCommandNullTables() {
+        command.executionCommand("tables");
+        verify(databaseManager).listTables();
+        verify(message).write("This database has no tables");
     }
 
     @Test
@@ -48,6 +57,6 @@ public class TablesTest {
     @Test
     public void testDepictionCommand() {
         String depictionCommand = command.depictionCommand();
-        assertEquals("Список существующих таблиц в базе данных.", depictionCommand);
+        assertEquals("List of tables in the database", depictionCommand);
     }
 }

@@ -2,6 +2,7 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,12 +19,14 @@ public class CreateTest {
     private Message message;
     private DatabaseManager databaseManager;
     private Command command;
+    private MessageColor messageColor;
 
     @Before
     public void setUp() {
         message = mock(Message.class);
         databaseManager = mock(DatabaseManager.class);
         command = new Create(message, databaseManager);
+        messageColor = new MessageColor();
     }
 
     @Test
@@ -49,7 +52,7 @@ public class CreateTest {
         String tableName = "people";
         String keyName = "id";
         Map<String, Object> columns = new LinkedHashMap<>();
-        columns.put("name" , "text");
+        columns.put("name", "text");
 
         command.executionCommand("create|people|id|name|text");
         verify(databaseManager).createTable(tableName, keyName, columns);
@@ -62,10 +65,9 @@ public class CreateTest {
             command.executionCommand("create|people");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals(verify(message).getColorRed() + "This command 'create|people' wrong" +
-                    ", should be: " +
-                    "create|tableName|primaryKeyName|columnName1|columnValue1|" +
-                    "....|columnNameN|columnValueN" + verify(message).getColorReset(), e.getMessage());
+            assertEquals(messageColor.getErrorMessage("create|people")
+                            + "create|tableName|primaryKeyName|columnName1|columnValue1|....|columnNameN|columnValueN"
+                    , e.getMessage());
         }
     }
 

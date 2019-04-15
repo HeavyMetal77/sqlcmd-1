@@ -1,9 +1,11 @@
 package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 
 public class CommandNotExist extends NullFormat implements Command {
     private Message message;
+    private MessageColor messageColor = new MessageColor();
 
     public CommandNotExist(Message message) {
         this.message = message;
@@ -14,9 +16,7 @@ public class CommandNotExist extends NullFormat implements Command {
         return true;
     }
 
-    @Override
     public void executionCommand(String command) {
-        message.write(String.format(message.getColorRed() +
-                "Nonexistent command: '%s'" + message.getColorReset(), command));
+        message.write(messageColor.getErrorNotExist(command));
     }
 }

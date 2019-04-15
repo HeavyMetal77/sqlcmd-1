@@ -3,6 +3,7 @@ package com.makarenko.sqlcmd.controller;
 import com.makarenko.sqlcmd.commands.*;
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,13 +28,13 @@ public class Controller {
                 new Drop(message, databaseManager),
                 new Clear(message, databaseManager),
                 new CommandNotExist(message)
-                ));
+        ));
     }
 
     public void run() {
         try {
-            message.write("Добро пожаловать в программу 'SQLCMD'");
-            message.write("Для просмотра существующих команд введите: help");
+            message.write("Welcome to program 'SQLCMD'");
+            message.write("To view commands enter: help");
 
             while (true) {
                 String input = message.read();
@@ -51,7 +52,7 @@ public class Controller {
                         break;
                     }
                 }
-                message.write("Введи команду (или help для помощи):");
+                message.write("Enter command (or help):");
             }
         } catch (ExitException e) {
 
@@ -64,6 +65,6 @@ public class Controller {
         if (cause != null) {
             error += " " + cause.getMessage();
         }
-        message.write("Неудача! по причине: " + error);
+        message.write("Fail! Because of: " + error);
     }
 }

@@ -3,6 +3,7 @@ package com.makarenko.sqlcmd.commands;
 import com.makarenko.sqlcmd.view.Message;
 import org.junit.Before;
 import org.junit.Test;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;

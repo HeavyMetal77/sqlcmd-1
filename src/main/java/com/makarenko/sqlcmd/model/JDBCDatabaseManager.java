@@ -1,6 +1,7 @@
 package com.makarenko.sqlcmd.model;
 
 import com.makarenko.sqlcmd.view.PrintTable;
+
 import java.sql.*;
 import java.util.*;
 
@@ -14,18 +15,18 @@ public class JDBCDatabaseManager implements DatabaseManager {
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/" + database, userName, password);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Установите JDBC драйвер", e);
+            throw new RuntimeException("Setup JDBC driver", e);
         } catch (SQLException e) {
             connection = null;
             throw new RuntimeException(String.format(
-                    "Не удалось подключиться к базе данных '%s' ", database), e);
+                    "Could not connect to database '%s' ", database), e);
         }
     }
 
     @Override
     public Set<String> listTables() {
         String sql = "SELECT table_name FROM information_schema.tables WHERE table_schema='public'";
-        try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(sql)){
+        try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
             Set<String> tables = new LinkedHashSet<>();
             while (resultSet.next()) {
                 tables.add(resultSet.getString("table_name"));
@@ -38,7 +39,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void createTable(String tableName, String keyName, Map<String, Object> columns) {
-        try (Statement stmt = connection.createStatement()){
+        try (Statement stmt = connection.createStatement()) {
             String result = "";
             for (Map.Entry<String, Object> pair : columns.entrySet()) {
                 result += ", " + pair.getKey() + " " + pair.getValue();
@@ -108,7 +109,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void update(String tableName, String keyName, String keyValue, Map<String, Object> column) {
-        try (Statement statement = connection.createStatement()){
+        try (Statement statement = connection.createStatement()) {
             for (Map.Entry<String, Object> pair : column.entrySet()) {
                 statement.executeUpdate("UPDATE " + tableName +
                         " SET " + pair.getKey() + " = '" + pair.getValue() +

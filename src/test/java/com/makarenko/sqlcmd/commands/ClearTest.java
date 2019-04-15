@@ -2,8 +2,10 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 import org.junit.Before;
 import org.junit.Test;
+
 import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -13,12 +15,14 @@ public class ClearTest {
     private Message message;
     private DatabaseManager databaseManager;
     private Command command;
+    private MessageColor messageColor;
 
     @Before
     public void setUp() {
         message = mock(Message.class);
         databaseManager = mock(DatabaseManager.class);
         command = new Clear(message, databaseManager);
+        messageColor = new MessageColor();
     }
 
     @Test
@@ -64,9 +68,7 @@ public class ClearTest {
             command.executionCommand("clear|");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals(verify(message).getColorRed() +
-                    "This command 'clear|' wrong, should be: clear|tableName" +
-                    verify(message).getColorReset(), e.getMessage());
+            assertEquals(messageColor.getErrorMessage("clear|") + "clear|tableName", e.getMessage());
         }
     }
 

@@ -2,10 +2,13 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.*;
@@ -16,12 +19,14 @@ public class UpdateTest {
     private Message message;
     private DatabaseManager databaseManager;
     private Command command;
+    private MessageColor messageColor;
 
     @Before
     public void setUp() {
         message = mock(Message.class);
         databaseManager = mock(DatabaseManager.class);
         command = new Update(message, databaseManager);
+        messageColor = new MessageColor();
     }
 
     @Test
@@ -52,7 +57,7 @@ public class UpdateTest {
         columnData.put("name", "sens");
 
         verify(databaseManager).update(tableName, keyName, keyValue, columnData);
-        verify(message).write("Все записи успешно обновлены.");
+        verify(message).write("All records successfully updated");
     }
 
     @Test
@@ -61,7 +66,7 @@ public class UpdateTest {
             command.executionCommand("update|car|");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("Вы неверно ввели команду 'update|car|', а должно быть " +
+            assertEquals(messageColor.getErrorMessage("update|car|") +
                     "update|tableName|primaryColumnName|primaryColumnValue|getColumnName1|" +
                     "SetColumnNewValue1|...|getColumnNameN|SetColumnNewValueN", e.getMessage());
         }
@@ -77,6 +82,6 @@ public class UpdateTest {
     @Test
     public void testDepictionCommand() {
         String depictionCommand = command.depictionCommand();
-        assertEquals("Обновление записи", depictionCommand);
+        assertEquals("Record update", depictionCommand);
     }
 }

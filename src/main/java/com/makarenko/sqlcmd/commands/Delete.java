@@ -2,10 +2,12 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 
 public class Delete implements Command {
     private Message message;
     private DatabaseManager databaseManager;
+    private MessageColor messageColor = new MessageColor();
 
     public Delete(Message message, DatabaseManager databaseManager) {
         this.message = message;
@@ -21,8 +23,8 @@ public class Delete implements Command {
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
         if (data.length != 4) {
-            throw new IllegalArgumentException(String.format(message.getColorRed() + "This command '%s' wrong, " +
-                    "should be: delete|tableName|columnName|columnValue" + message.getColorReset(), command));
+            throw new IllegalArgumentException(messageColor.getErrorMessage(command)
+                    + "delete|tableName|columnName|columnValue");
         }
 
         String tableName = data[1];

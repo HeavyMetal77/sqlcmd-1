@@ -2,10 +2,12 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 
 public class Clear implements Command {
     private Message message;
     private DatabaseManager databaseManager;
+    private MessageColor messageColor = new MessageColor();
 
     public Clear(Message message, DatabaseManager databaseManager) {
         this.message = message;
@@ -21,8 +23,7 @@ public class Clear implements Command {
     public void executionCommand(String command) {
         String data[] = command.split("\\|");
         if (data.length != 2) {
-            throw new IllegalArgumentException(String.format(message.getColorRed() +
-                    "This command '%s' wrong, should be: clear|tableName" + message.getColorReset(), command));
+            throw new IllegalArgumentException(messageColor.getErrorMessage(command) + "clear|tableName");
         }
 
         String tableName = data[1];

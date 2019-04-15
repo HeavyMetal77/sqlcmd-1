@@ -2,6 +2,7 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,12 +17,14 @@ public class DeleteTest {
     private Message message;
     private DatabaseManager databaseManager;
     private Command command;
+    private MessageColor messageColor;
 
     @Before
     public void setUp() {
         message = mock(Message.class);
         databaseManager = mock(DatabaseManager.class);
         command = new Delete(message, databaseManager);
+        messageColor = new MessageColor();
     }
 
     @Test
@@ -59,9 +62,8 @@ public class DeleteTest {
             command.executionCommand("delete|");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals(verify(message).getColorRed() + "This command 'delete|' wrong, " +
-                    "should be: delete|tableName|columnName|columnValue" + verify(message).getColorReset()
-                    , e.getMessage());
+            assertEquals(messageColor.getErrorMessage("delete|")
+                    + "delete|tableName|columnName|columnValue", e.getMessage());
         }
     }
 

@@ -2,6 +2,8 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 public class Help extends NullFormat implements Command {
     private Message message;
     private List<Command> commands;
+    private MessageColor messageColor = new MessageColor();
 
     public Help(Message message) {
         DatabaseManager databaseManager = null;
@@ -35,11 +38,11 @@ public class Help extends NullFormat implements Command {
     @Override
     public void executionCommand(String command) {
         if (!command.equals("help")) {
-            throw new IllegalArgumentException(String.format("Такой команды не существует '%s'", command));
+            throw new IllegalArgumentException(messageColor.getErrorNotExist(command));
         }
 
         for (Command comm : commands) {
-            if(comm.formatCommand() != null) {
+            if (comm.formatCommand() != null) {
                 message.write(comm.formatCommand());
                 message.write("\t" + comm.depictionCommand() + "\n");
             }

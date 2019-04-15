@@ -2,6 +2,7 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,12 +19,14 @@ public class InsertTest {
     private Message message;
     private DatabaseManager databaseManager;
     private Command command;
+    private MessageColor messageColor;
 
     @Before
     public void setUp() {
         message = mock(Message.class);
         databaseManager = mock(DatabaseManager.class);
         command = new Insert(message, databaseManager);
+        messageColor = new MessageColor();
     }
 
     @Test
@@ -53,7 +56,7 @@ public class InsertTest {
 
         command.executionCommand("insert|car|id|3|name|lada");
         verify(databaseManager).insert(tableName, row);
-        verify(message).write(String.format("В таблицу 'car' успешно добавлены записи", tableName));
+        verify(message).write(String.format("Records successfully added to the 'car'", tableName));
     }
 
     @Test
@@ -62,8 +65,8 @@ public class InsertTest {
             command.executionCommand("insert|car|");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("Вы неверно ввели команду 'insert|car|', " +
-                    "а должно быть insert|tableName|columnName1|columnValue1|...|columnNameN|columnValueN", e.getMessage());
+            assertEquals(messageColor.getErrorMessage("insert|car|") +
+                    "insert|tableName|columnName1|columnValue1|...|columnNameN|columnValueN", e.getMessage());
         }
     }
 
@@ -76,6 +79,6 @@ public class InsertTest {
     @Test
     public void testDepictionCommand() {
         String depictionCommand = command.depictionCommand();
-        assertEquals("Вставка данных в таблицу", depictionCommand);
+        assertEquals("Insert records in the table", depictionCommand);
     }
 }

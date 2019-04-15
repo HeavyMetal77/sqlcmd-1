@@ -16,7 +16,7 @@ public class PrintTable {
         private String justifyFlag = "";
         private int typeCategory = 0;
 
-        public Column (String label, int type) {
+        public Column(String label, int type) {
             this.label = label;
             this.type = type;
         }
@@ -117,13 +117,13 @@ public class PrintTable {
             String name = c.getLabel();
             int diff = width - name.length();
 
-            if ((diff%2) == 1) {
+            if ((diff % 2) == 1) {
                 width++;
                 diff++;
                 c.setWidth(width);
             }
 
-            int paddingSize = diff/2;
+            int paddingSize = diff / 2;
             String padding = new String(new char[paddingSize]).replace("\0", " ");
             toPrint = "| " + padding + name + padding + " ";
             strToPrint.append(toPrint);

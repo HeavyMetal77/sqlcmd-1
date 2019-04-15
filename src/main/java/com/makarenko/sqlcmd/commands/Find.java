@@ -1,9 +1,11 @@
 package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
+import com.makarenko.sqlcmd.view.MessageColor;
 
 public class Find implements Command {
     private DatabaseManager databaseManager;
+    private MessageColor messageColor = new MessageColor();
 
     public Find(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
@@ -18,8 +20,7 @@ public class Find implements Command {
     public void executionCommand(String command) {
         String[] data = command.split("\\|");
         if (data.length != 2) {
-            throw new IllegalArgumentException(
-                    String.format("Вы неверно ввели команду '%s', а должно быть find|tableName", command));
+            throw new IllegalArgumentException(messageColor.getErrorMessage(command) + "find|tableName");
         }
 
         String tableName = data[1];
@@ -33,6 +34,6 @@ public class Find implements Command {
 
     @Override
     public String depictionCommand() {
-        return "Вывод таблицы с данными";
+        return "Data table output";
     }
 }

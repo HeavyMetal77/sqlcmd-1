@@ -3,7 +3,6 @@ package com.makarenko.sqlcmd.commands;
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
 
-import java.sql.SQLException;
 import java.util.Set;
 
 public class Tables implements Command {
@@ -24,7 +23,7 @@ public class Tables implements Command {
     public void executionCommand(String command) {
         Set<String> tables = databaseManager.listTables();
         if (tables.size() == 0) {
-            message.write("В этой базе данных нет таблиц.");
+            message.write("This database has no tables");
         }
         message.write(tables.toString().
                 replace("[", "| ").
@@ -38,6 +37,6 @@ public class Tables implements Command {
 
     @Override
     public String depictionCommand() {
-        return "Список существующих таблиц в базе данных.";
+        return "List of tables in the database";
     }
 }

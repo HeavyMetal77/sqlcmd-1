@@ -2,8 +2,10 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -46,14 +48,14 @@ public class ConnectTest {
 
     @Test
     public void testExecutionCommandCountParameter() {
+        MessageColor messageColor = new MessageColor();
         try {
             command.executionCommand("connect|sqlcmd|postgres");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals(verify(message).getColorRed() +
-                    "This command 'connect|sqlcmd|postgres' wrong, " +
-                    "should be: connect|database|user|password" +
-                    verify(message).getColorReset(), e.getMessage());
+            assertEquals(messageColor.getErrorMessage("connect|sqlcmd|postgres")
+                            + "connect|database|user|password"
+                    , e.getMessage());
         }
     }
 

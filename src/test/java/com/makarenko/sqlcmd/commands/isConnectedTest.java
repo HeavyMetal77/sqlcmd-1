@@ -2,6 +2,7 @@ package com.makarenko.sqlcmd.commands;
 
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+import com.makarenko.sqlcmd.view.MessageColor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,12 +13,14 @@ public class isConnectedTest {
     private Message message;
     private DatabaseManager databaseManager;
     private Command command;
+    private MessageColor messageColor;
 
     @Before
     public void setUp() {
         message = mock(Message.class);
         databaseManager = mock(DatabaseManager.class);
         command = new isConnected(databaseManager, message);
+        messageColor = new MessageColor();
     }
 
     @Test
@@ -29,6 +32,6 @@ public class isConnectedTest {
     @Test
     public void executionCommand() {
         command.executionCommand("connect");
-        verify(message).write("You cannot use commands. Connect to the database");
+        verify(message).write(messageColor.getNotConnect("connect"));
     }
 }
