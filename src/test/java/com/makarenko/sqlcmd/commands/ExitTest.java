@@ -38,9 +38,7 @@ public class ExitTest {
         try {
             command.executionCommand("exit");
             fail();
-        } catch (ExitException e) {
-
-        }
+        } catch (ExitException e) {}
         verify(message).write("Goodbye, thank you for using our product");
     }
 

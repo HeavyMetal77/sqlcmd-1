@@ -3,7 +3,6 @@ package com.makarenko.sqlcmd.controller;
 import com.makarenko.sqlcmd.commands.*;
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +27,7 @@ public class Controller {
                 new Drop(message, databaseManager),
                 new Clear(message, databaseManager),
                 new CommandNotExist(message)
-        ));
+                ));
     }
 
     public void run() {
@@ -44,27 +43,23 @@ public class Controller {
                             command.executionCommand(input);
                             break;
                         }
-                    } catch (Exception e) {
-                        if (e instanceof ExitException) {
-                            throw e;
-                        }
+                    } catch (RuntimeException e) {
+                        if (e instanceof ExitException) throw e;
                         printError(e);
                         break;
                     }
                 }
                 message.write("Enter command (or help):");
             }
-        } catch (ExitException e) {
-
-        }
+        } catch (ExitException e) {}
     }
 
-    private void printError(Exception e) {
+    private void printError(RuntimeException e) {
         String error = e.getMessage();
         Throwable cause = e.getCause();
         if (cause != null) {
             error += " " + cause.getMessage();
         }
-        message.write("Fail! Because of: " + error);
+        message.write("Fail! because of: " + error);
     }
 }
