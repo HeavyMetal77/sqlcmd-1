@@ -23,9 +23,9 @@ public class Tables implements Command {
     public void executionCommand(String command) {
         Set<String> tables = databaseManager.listTables();
         if (tables.size() == 0) {
-            message.write("This database has no tables");
+            message.writeln("This database has no tables");
         }
-        message.write(tables.toString().
+        message.writeln(tables.toString().
                 replace("[", "| ").
                 replace("]", " |"));
     }

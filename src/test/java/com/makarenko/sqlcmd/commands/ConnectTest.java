@@ -43,7 +43,7 @@ public class ConnectTest {
     @Test
     public void testExecutionCommandSuccessful() {
         command.executionCommand("connect|sqlcmd|postgres|postgres");
-        verify(message).write("Database connection 'sqlcmd' was successful");
+        verify(message).writeln("Database connection 'sqlcmd' was successful");
     }
 
     @Test

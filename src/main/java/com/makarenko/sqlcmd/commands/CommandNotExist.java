@@ -17,6 +17,6 @@ public class CommandNotExist extends NullFormat implements Command {
     }
 
     public void executionCommand(String command) {
-        message.write(messageColor.getErrorNotExist(command));
+        message.writeln(messageColor.getErrorNotExist(command));
     }
 }

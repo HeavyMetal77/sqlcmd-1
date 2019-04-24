@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrintTable {
+    private static Message message = new Console();
     private static class Column {
-
         private String label;
         private int type;
         private int width = 0;
@@ -61,14 +61,13 @@ public class PrintTable {
     public static void printResultSet(ResultSet resultSet) {
         try {
             if (resultSet == null) {
-                System.err.println("TablePrinter Error: Result set is null!");
+                message.writeln("TablePrinter Error: Result set is null!");
                 return;
             }
             if (resultSet.isClosed()) {
-                System.err.println("TablePrinter Error: Result Set is closed!");
+                message.writeln("TablePrinter Error: Result Set is closed!");
                 return;
             }
-
             ResultSetMetaData metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
             List<Column> columns = new ArrayList<>(columnCount);
@@ -98,11 +97,10 @@ public class PrintTable {
                 }
                 rowCount++;
             }
-
             printColumnAndRow(columns, rowCount);
         } catch (SQLException e) {
-            System.err.println("SQL exception in TablePrinter. Message:");
-            System.err.println(e.getMessage());
+            message.writeln("SQL exception in TablePrinter. Message:");
+            message.writeln(e.getMessage());
         }
     }
 
@@ -138,18 +136,18 @@ public class PrintTable {
         strToPrint.insert(0, rowSeparator);
         strToPrint.append(rowSeparator);
 
-        System.out.print(strToPrint.toString());
+        message.write(strToPrint.toString());
 
         String format;
 
         for (int i = 0; i < rowCount; i++) {
             for (Column c : columns) {
                 format = String.format("| %%%s%ds ", c.getJustifyFlag(), c.getWidth());
-                System.out.print(String.format(format, c.getValue(i)));
+                message.write(String.format(format, c.getValue(i)));
             }
-            System.out.println("|");
-            System.out.print(rowSeparator);
+            message.writeln("|");
+            message.write(rowSeparator.toString());
         }
-        System.out.println();
+        message.writeln("");
     }
 }

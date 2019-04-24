@@ -37,7 +37,7 @@ public class Insert implements Command {
         }
 
         databaseManager.insert(tableName, row);
-        message.write(String.format("Records successfully added to the '%s'", tableName));
+        message.writeln(String.format("Records successfully added to the '%s'", tableName));
     }
 
     @Override

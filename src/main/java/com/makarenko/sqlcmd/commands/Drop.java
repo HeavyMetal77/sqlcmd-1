@@ -32,7 +32,7 @@ public class Drop implements Command {
         }
 
         databaseManager.dropTable(tableName);
-        message.write(String.format("Table '%s' successfully deleted", tableName));
+        message.writeln(String.format("Table '%s' successfully deleted", tableName));
     }
 
     @Override
@@ -46,13 +46,13 @@ public class Drop implements Command {
     }
 
     private boolean confirmed(String tableName) {
-        message.write(String.format("You want to delete the table '%s'? " +
+        message.writeln(String.format("You want to delete the table '%s'? " +
                 "Enter the name of the table to confirm", tableName));
         String verification = message.read();
         if (verification.equals(tableName)) {
             return true;
         }
-        message.write("deletion canceled");
+        message.writeln("deletion canceled");
         return false;
     }
 }

@@ -5,8 +5,6 @@ import com.makarenko.sqlcmd.view.Message;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Set;
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -45,7 +43,7 @@ public class TablesTest {
     public void testExecutionCommandNullTables() {
         command.executionCommand("tables");
         verify(databaseManager).listTables();
-        verify(message).write("This database has no tables");
+        verify(message).writeln("This database has no tables");
     }
 
     @Test

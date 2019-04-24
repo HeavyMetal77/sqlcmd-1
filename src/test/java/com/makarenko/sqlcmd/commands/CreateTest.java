@@ -11,7 +11,8 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -56,7 +57,7 @@ public class CreateTest {
 
         command.executionCommand("create|people|id|name|text");
         verify(databaseManager).createTable(tableName, keyName, columns);
-        verify(message).write("Table 'people' created successfully");
+        verify(message).writeln("Table 'people' created successfully");
     }
 
     @Test

@@ -39,7 +39,7 @@ public class ExitTest {
             command.executionCommand("exit");
             fail();
         } catch (ExitException e) {}
-        verify(message).write("Goodbye, thank you for using our product");
+        verify(message).writeln("Goodbye, thank you for using our product");
     }
 
     @Test

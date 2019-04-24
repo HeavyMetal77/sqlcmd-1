@@ -8,7 +8,8 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -53,7 +54,7 @@ public class DeleteTest {
 
         command.executionCommand("delete|car|id|1");
         verify(databaseManager).delete(tableName, columnName, columnValue);
-        verify(message).write("Record successfully deleted");
+        verify(message).writeln("Record successfully deleted");
     }
 
     @Test

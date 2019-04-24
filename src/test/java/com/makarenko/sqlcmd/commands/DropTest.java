@@ -8,10 +8,9 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class DropTest {
     private Message message;
@@ -49,17 +48,17 @@ public class DropTest {
     public void testDropTableSuccessful() {
         when(message.read()).thenReturn("car");
         command.executionCommand("drop|car");
-        verify(message).write("You want to delete the table 'car'? Enter the name of the table to confirm");
+        verify(message).writeln("You want to delete the table 'car'? Enter the name of the table to confirm");
         verify(databaseManager).dropTable("car");
-        verify(message).write("Table 'car' successfully deleted");
+        verify(message).writeln("Table 'car' successfully deleted");
     }
 
     @Test
     public void testDropTableNotSuccessful() {
         when(message.read()).thenReturn("d");
         command.executionCommand("drop|car");
-        verify(message).write("You want to delete the table 'car'? Enter the name of the table to confirm");
-        verify(message).write("deletion canceled");
+        verify(message).writeln("You want to delete the table 'car'? Enter the name of the table to confirm");
+        verify(message).writeln("deletion canceled");
     }
 
     @Test

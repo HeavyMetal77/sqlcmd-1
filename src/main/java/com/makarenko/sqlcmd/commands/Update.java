@@ -39,7 +39,7 @@ public class Update implements Command {
             columnData.put(data[index], data[index + 1]);
         }
         databaseManager.update(tableName, keyName, keyValue, columnData);
-        message.write("All records successfully updated");
+        message.writeln("All records successfully updated");
     }
 
     @Override

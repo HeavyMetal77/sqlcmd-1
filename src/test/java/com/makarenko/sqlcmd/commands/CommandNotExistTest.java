@@ -5,7 +5,7 @@ import com.makarenko.sqlcmd.view.MessageColor;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -30,6 +30,6 @@ public class CommandNotExistTest {
     @Test
     public void testExecutionCommand() {
         command.executionCommand("is");
-        verify(message).write(messageColor.getErrorNotExist("is"));
+        verify(message).writeln(messageColor.getErrorNotExist("is"));
     }
 }

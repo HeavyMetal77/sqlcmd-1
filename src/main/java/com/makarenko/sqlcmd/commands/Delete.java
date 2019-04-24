@@ -32,7 +32,7 @@ public class Delete implements Command {
         String columnValue = data[3];
 
         databaseManager.delete(tableName, columnName, columnValue);
-        message.write("Record successfully deleted");
+        message.writeln("Record successfully deleted");
     }
 
     @Override

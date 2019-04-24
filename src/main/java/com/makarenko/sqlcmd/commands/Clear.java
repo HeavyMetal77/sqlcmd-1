@@ -32,7 +32,7 @@ public class Clear implements Command {
         }
 
         databaseManager.clearTable(tableName);
-        message.write(String.format("Table '%s' successfully cleared", tableName));
+        message.writeln(String.format("Table '%s' successfully cleared", tableName));
     }
 
     @Override
@@ -46,13 +46,13 @@ public class Clear implements Command {
     }
 
     private boolean confirmed(String tableName) {
-        message.write(String.format("You want to clear the table '%s'? " +
+        message.writeln(String.format("You want to clear the table '%s'? " +
                 "Enter the name of the table to confirm", tableName));
         String verification = message.read();
         if (verification.equals(tableName)) {
             return true;
         }
-        message.write("cleaning canceled");
+        message.writeln("cleaning canceled");
         return false;
     }
 }

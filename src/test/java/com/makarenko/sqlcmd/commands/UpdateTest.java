@@ -11,7 +11,8 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -57,7 +58,7 @@ public class UpdateTest {
         columnData.put("name", "sens");
 
         verify(databaseManager).update(tableName, keyName, keyValue, columnData);
-        verify(message).write("All records successfully updated");
+        verify(message).writeln("All records successfully updated");
     }
 
     @Test

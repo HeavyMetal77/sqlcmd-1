@@ -11,7 +11,8 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -56,7 +57,7 @@ public class InsertTest {
 
         command.executionCommand("insert|car|id|3|name|lada");
         verify(databaseManager).insert(tableName, row);
-        verify(message).write(String.format("Records successfully added to the 'car'", tableName));
+        verify(message).writeln(String.format("Records successfully added to the 'car'", tableName));
     }
 
     @Test

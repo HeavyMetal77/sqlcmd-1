@@ -38,7 +38,7 @@ public class Create implements Command {
         }
 
         databaseManager.createTable(tableName, keyName, columns);
-        message.write(String.format("Table '%s' created successfully", tableName));
+        message.writeln(String.format("Table '%s' created successfully", tableName));
     }
 
     @Override

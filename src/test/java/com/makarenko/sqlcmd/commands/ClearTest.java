@@ -7,9 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ClearTest {
     private Message message;
@@ -29,9 +27,9 @@ public class ClearTest {
     public void testClearTableSuccessful() {
         when(message.read()).thenReturn("car");
         command.executionCommand("clear|car");
-        verify(message).write("You want to clear the table 'car'? Enter the name of the table to confirm");
+        verify(message).writeln("You want to clear the table 'car'? Enter the name of the table to confirm");
         verify(databaseManager).clearTable("car");
-        verify(message).write("Table 'car' successfully cleared");
+        verify(message).writeln("Table 'car' successfully cleared");
     }
 
 
@@ -39,8 +37,8 @@ public class ClearTest {
     public void testClearTableNotSuccessful() {
         when(message.read()).thenReturn("d");
         command.executionCommand("clear|car");
-        verify(message).write("You want to clear the table 'car'? Enter the name of the table to confirm");
-        verify(message).write("cleaning canceled");
+        verify(message).writeln("You want to clear the table 'car'? Enter the name of the table to confirm");
+        verify(message).writeln("cleaning canceled");
     }
 
 

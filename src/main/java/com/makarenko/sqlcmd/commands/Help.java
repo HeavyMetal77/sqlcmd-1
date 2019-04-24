@@ -43,8 +43,8 @@ public class Help extends NullFormat implements Command {
 
         for (Command comm : commands) {
             if (comm.formatCommand() != null) {
-                message.write(comm.formatCommand());
-                message.write("\t" + comm.depictionCommand() + "\n");
+                message.writeln(comm.formatCommand());
+                message.writeln("\t" + comm.depictionCommand() + "\n");
             }
         }
     }

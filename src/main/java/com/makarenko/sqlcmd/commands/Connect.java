@@ -32,7 +32,7 @@ public class Connect implements Command {
         String password = data[3];
 
         databaseManager.connect(database, userName, password);
-        message.write(String.format("Database connection '%s' was successful", database));
+        message.writeln(String.format("Database connection '%s' was successful", database));
     }
 
     @Override

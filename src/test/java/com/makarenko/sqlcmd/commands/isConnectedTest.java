@@ -32,6 +32,6 @@ public class isConnectedTest {
     @Test
     public void executionCommand() {
         command.executionCommand("connect");
-        verify(message).write(messageColor.getNotConnect("connect"));
+        verify(message).writeln(messageColor.getNotConnect("connect"));
     }
 }

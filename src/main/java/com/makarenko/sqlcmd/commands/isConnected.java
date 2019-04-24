@@ -21,6 +21,6 @@ public class isConnected extends NullFormat implements Command {
 
     @Override
     public void executionCommand(String command) {
-        message.write(messageColor.getNotConnect(command));
+        message.writeln(messageColor.getNotConnect(command));
     }
 }

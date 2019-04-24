@@ -3,6 +3,7 @@ package com.makarenko.sqlcmd.controller;
 import com.makarenko.sqlcmd.commands.*;
 import com.makarenko.sqlcmd.model.DatabaseManager;
 import com.makarenko.sqlcmd.view.Message;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,8 +33,8 @@ public class Controller {
 
     public void run() {
         try {
-            message.write("Welcome to program 'SQLCMD'");
-            message.write("To view commands enter: help");
+            message.writeln("Welcome to program 'SQLCMD'");
+            message.writeln("To view commands enter: help");
 
             while (true) {
                 String input = message.read();
@@ -49,7 +50,7 @@ public class Controller {
                         break;
                     }
                 }
-                message.write("Enter command (or help):");
+                message.writeln("Enter command (or help):");
             }
         } catch (ExitException e) {}
     }
@@ -60,6 +61,6 @@ public class Controller {
         if (cause != null) {
             error += " " + cause.getMessage();
         }
-        message.write("Fail! because of: " + error);
+        message.writeln("Fail! because of: " + error);
     }
 }

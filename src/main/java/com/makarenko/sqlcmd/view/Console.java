@@ -7,8 +7,13 @@ import java.io.InputStreamReader;
 public class Console implements Message {
 
     @Override
-    public void write(String message) {
+    public void writeln(String message) {
         System.out.println(message);
+    }
+
+    @Override
+    public void write(String message) {
+        System.out.print(message);
     }
 
     @Override
